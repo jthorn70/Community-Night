@@ -78,11 +78,11 @@ export default function Form() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Grid.Container gap={2} justify="center">
+            <Grid.Container gap={1} justify="center">
                 <Text h2>Submit a Video</Text>
             </Grid.Container>
 
-            <Grid.Container gap={2} justify="center">
+            <Grid.Container gap={1} justify="center">
                 <Grid>
                     <Input
                         label="Username"
@@ -99,6 +99,7 @@ export default function Form() {
                         label="Video Link"
                         type="url"
                         name="videoLink"
+                        placeholder='https://www.youtube.com/watch?v='
                         required
                     />
                 </Grid>
@@ -106,14 +107,14 @@ export default function Form() {
 
             <Grid.Container gap={2} justify="center">
                 <Grid>
-                    <Textarea labelPlaceholder="Description" status="default" name="description" required />
+                    <Textarea helperText='Enter Description' size='xl' labelPlaceholder="Description" status="default" name="description" required />
                 </Grid>
             </Grid.Container>
 
             <Grid.Container gap={2} justify="center">
-                <Grid>
-
+                <Grid >
                     <Dropdown name="category" required>
+
                         <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
                             {selectedValue}
                         </Dropdown.Button>
@@ -149,8 +150,8 @@ export default function Form() {
                     <Modal.Header>
                         <Text id="modal-title" size={18}>
                             Submission
-                            <Text b size={18}>
-                                {formValid ? "Accepted!" : "Failed"}
+                            <Text b size={23}>
+                                {formValid ? " Accepted!" : " Failed"}
                             </Text>
                             <Text>{formValid ? "See you at Community Night!" : "Please Fill out the form correctly."}</Text>
                         </Text>

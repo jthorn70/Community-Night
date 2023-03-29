@@ -52,10 +52,7 @@ export default function SubmissionTable() {
             key: 'category',
             label: 'Category',
         },
-        {
-            key: 'eventName',
-            label: 'Event Name',
-        },
+
     ];
 
     const handleSelectionChange = (value) => {
@@ -65,7 +62,7 @@ export default function SubmissionTable() {
 
     return (
         <><Grid.Container gap={1} justify='center'>
-            <Grid xs={4}>
+            <Grid justify='center' xs={12}>
                 <Dropdown>
                     <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
                         {selected}
@@ -91,28 +88,30 @@ export default function SubmissionTable() {
                     </Dropdown.Menu>
                 </Dropdown>
             </Grid>
-            <Grid xs={9}>
-                <Table
-                    aria-label="Submission Form Table"
-                    css={{
-                        height: 'auto',
-                        minWidth: '100%',
-                    }}
-                >
-                    <Table.Header columns={columns}>
-                        {(column) => <Table.Column key={column.key}>{column.label}</Table.Column>}
-                    </Table.Header>
-                    <Table.Body items={filteredEvents}>
-                        {(item) => (
-                            <Table.Row key={item.id}>
-                                {(columnKey) => <Table.Cell>{item[columnKey]}</Table.Cell>}
-                            </Table.Row>
-                        )}
-                    </Table.Body>
-                </Table>
-            </Grid>
-
         </Grid.Container>
+            <Grid.Container gap={1} justify='center'>
+                <Grid justify='center' xs={12}>
+                    <Table
+                        aria-label="Submission Form Table"
+                        css={{
+                            height: 'auto',
+                            minWidth: '100%',
+                        }}
+                    >
+                        <Table.Header columns={columns}>
+                            {(column) => <Table.Column key={column.key}>{column.label}</Table.Column>}
+                        </Table.Header>
+                        <Table.Body items={filteredEvents}>
+                            {(item) => (
+                                <Table.Row key={item.id}>
+                                    {(columnKey) => <Table.Cell>{item[columnKey]}</Table.Cell>}
+                                </Table.Row>
+                            )}
+                        </Table.Body>
+                    </Table>
+                </Grid>
+
+            </Grid.Container>
         </>
     );
 }
