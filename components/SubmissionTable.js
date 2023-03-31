@@ -1,4 +1,4 @@
-import { Grid, Table, Dropdown } from '@nextui-org/react';
+import { Link, Grid, Table, Dropdown } from '@nextui-org/react';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -93,10 +93,7 @@ export default function SubmissionTable() {
                 <Grid justify='center' xs={12}>
                     <Table
                         aria-label="Submission Form Table"
-                        css={{
-                            height: 'auto',
-                            minWidth: '100%',
-                        }}
+
                     >
                         <Table.Header columns={columns}>
                             {(column) => <Table.Column key={column.key}>{column.label}</Table.Column>}
@@ -104,11 +101,22 @@ export default function SubmissionTable() {
                         <Table.Body items={filteredEvents}>
                             {(item) => (
                                 <Table.Row key={item.id}>
-                                    {(columnKey) => <Table.Cell>{item[columnKey]}</Table.Cell>}
+                                    {(columnKey) =>
+                                        columnKey === 'link' ? (
+                                            <Table.Cell>
+                                                <Link href={item[columnKey]} target="_blank" rel="noopener noreferrer">
+                                                    {item[columnKey]}
+                                                </Link>
+                                            </Table.Cell>
+                                        ) : (
+                                            <Table.Cell>{item[columnKey]}</Table.Cell>
+                                        )
+                                    }
                                 </Table.Row>
                             )}
                         </Table.Body>
                     </Table>
+
                 </Grid>
 
             </Grid.Container>
