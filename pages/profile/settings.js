@@ -1,7 +1,8 @@
-import { Navbar, Link, Text, Avatar, Dropdown, Table } from "@nextui-org/react";
-import { Layout } from "../components/Layout.js";
-import { AcmeLogo } from "../components/AcmeLogo.js";
-import SubmissionTable from "../components/SubmissionTable.js";
+import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
+import { Layout } from "../../components/Layout.js";
+import { AcmeLogo } from "../../components/AcmeLogo.js";
+import UserSettings from "../../components/UserSettings.js";
+
 export default function App() {
     const collapseItems = [
         "Profile",
@@ -15,6 +16,8 @@ export default function App() {
         "Help & Feedback",
         "Log Out",
     ];
+
+
 
     return (
         <Layout>
@@ -38,11 +41,11 @@ export default function App() {
                     hideIn="xs"
                     variant="highlight-rounded"
                 >
-                    <Navbar.Link href="/">Home</Navbar.Link>
+                    <Navbar.Link isActive href="/">Home</Navbar.Link>
                     <Navbar.Link href="/submit">
                         Submit
                     </Navbar.Link>
-                    <Navbar.Link isActive href="#">View List</Navbar.Link>
+                    <Navbar.Link href="/viewList">View List</Navbar.Link>
                     <Navbar.Link href="#">About</Navbar.Link>
                 </Navbar.Content>
                 <Navbar.Content
@@ -119,7 +122,7 @@ export default function App() {
                     ))}
                 </Navbar.Collapse>
             </Navbar>
-            <SubmissionTable />
+            <UserSettings></UserSettings>
         </Layout>
     );
 }

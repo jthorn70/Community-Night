@@ -24,6 +24,7 @@ export default function SubmissionTable() {
             if (error) console.log('error', error);
             else {
                 setEvents(data);
+                console.log(data)
             }
         };
         fetchEvents();
@@ -59,10 +60,9 @@ export default function SubmissionTable() {
         setSelected(value);
         setEventName(value);
     };
-
     return (
         <><Grid.Container gap={1} justify='center'>
-            <Grid justify='center' xs={12}>
+            <Grid justify='center'>
                 <Dropdown>
                     <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
                         {selected}
@@ -90,11 +90,9 @@ export default function SubmissionTable() {
             </Grid>
         </Grid.Container>
             <Grid.Container gap={1} justify='center'>
-                <Grid justify='center' xs={12}>
+                <Grid justify='center'>
                     <Table
-                        aria-label="Submission Form Table"
-
-                    >
+                        aria-label="Submission Form Table">
                         <Table.Header columns={columns}>
                             {(column) => <Table.Column key={column.key}>{column.label}</Table.Column>}
                         </Table.Header>
@@ -120,6 +118,7 @@ export default function SubmissionTable() {
                 </Grid>
 
             </Grid.Container>
+
         </>
     );
 }

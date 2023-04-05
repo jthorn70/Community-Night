@@ -19,7 +19,7 @@ export default function App() {
 
     return (
         <Layout>
-            <Navbar isBordered variant="sticky">
+            <Navbar shouldHideOnScroll="true" isBordered variant="sticky">
                 <Navbar.Toggle showIn="xs" />
                 <Navbar.Brand
                     css={{
