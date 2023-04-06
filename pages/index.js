@@ -1,7 +1,10 @@
-import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
+import { Navbar, Link, Text, Button, Avatar, Dropdown } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
 import { AcmeLogo } from "../components/AcmeLogo.js";
 import Home from "../components/Home.js";
+import { useRouter } from 'next/router';
+
+
 
 export default function App() {
     const collapseItems = [
@@ -12,14 +15,50 @@ export default function App() {
         "System",
         "Deployments",
         "My Settings",
-        "Team Settings",
-        "Help & Feedback",
         "Log Out",
     ];
 
+    function LoginButton() {
+        const router = useRouter();
+
+        const handleLoginClick = () => {
+            const scope = 'identify'; // Request only the "identify" scope for now
+
+            // Redirect the user to Discord's OAuth authorization endpoint
+            window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1090359375010467960&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fdiscord&response_type=code&scope=identify';
+        };
+
+        return (
+            <button onClick={handleLoginClick}>Log in with Discord</button>
+        );
+    }
+
     return (
         <Layout>
-            <Navbar shouldHideOnScroll="true" isBordered variant="sticky">
+
+            <Navbar isCompact isBordered variant="sticky">
+                <Navbar.Brand>
+                    {/* <AcmeLogo /> */}
+                    <Text b color="inherit" hideIn="xs">
+                        Community Night
+                    </Text>
+                </Navbar.Brand>
+                <Navbar.Content hideIn="xs" variant="underline">
+                    <Navbar.Link isActive href="/">Home</Navbar.Link>
+                    <Navbar.Link href="/submit">Submit</Navbar.Link>
+                    <Navbar.Link href="/viewList">List</Navbar.Link>
+                    <Navbar.Link href="/profile/settings">My Profile</Navbar.Link>
+                </Navbar.Content>
+                <Navbar.Content>
+                    <Navbar.Link color="inherit" href="#">
+                        Login
+                    </Navbar.Link>
+                    <LoginButton></LoginButton>
+                </Navbar.Content>
+            </Navbar>
+
+
+            {/* <Navbar shouldHideOnScroll="true" isBordered variant="sticky">
                 <Navbar.Toggle showIn="xs" />
                 <Navbar.Brand
                     css={{
@@ -108,18 +147,19 @@ export default function App() {
                             isActive={index === 2}
                         >
                             <Link
-                                color="inherit"
+                                color="black"
                                 css={{
                                     minWidth: "100%",
                                 }}
-                                href="#"
+                                href={item === "My Settings" ? "/profile/settings" : ""}
+
                             >
-                                {item}
+                                {item}test
                             </Link>
                         </Navbar.CollapseItem>
                     ))}
                 </Navbar.Collapse>
-            </Navbar>
+            </Navbar> */}
             <Home />
         </Layout>
     );
