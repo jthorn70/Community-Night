@@ -1,8 +1,9 @@
 import { Table, Link } from "@nextui-org/react";
 import { createClient } from '@supabase/supabase-js';
-import { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
+import { getSession } from 'next-auth/client';
 
-export default function UserTable() {
+export default function UserTable({ session }) {
 
     const [user, setUser] = useState([]);
     const [userName, setUserName] = useState('test');
@@ -12,11 +13,14 @@ export default function UserTable() {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     useEffect(() => {
+        const profileName = session?.user?.name;
+
         const fetchEvents = async () => {
             let { data, error } = await supabase
                 .from('Submissions')
                 .select('*')
-                .eq('name', 'test');
+                .eq('name', profileName);
+            console.log(profileName)
             if (error) console.log('error', error);
             else {
                 setUser(data);
@@ -24,7 +28,7 @@ export default function UserTable() {
             }
         };
         fetchEvents();
-    }, []);
+    }, [session]);
 
     useEffect(() => {
         setFilteredEvents(
@@ -82,4 +86,21 @@ export default function UserTable() {
             </Table.Body>
         </Table>
     )
+}
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context);
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: { session },
+    };
 }

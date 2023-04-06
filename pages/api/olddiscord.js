@@ -1,8 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-const redirect_uri = `${process.env.BASE_URL}/api/callback/discord`;
-
+const redirect_uri = `${process.env.BASE_URL}/api/auth/discord`;
 export default async function discordCallback(req, res) {
     const { code } = req.query;
 
@@ -30,6 +29,11 @@ export default async function discordCallback(req, res) {
             Authorization: `Bearer ${tokenResponse.access_token}`,
         },
     });
+
+    // Create session object if it doesn't exist
+    if (!req.session) {
+        req.session = {};
+    }
 
     // Set the user session data
     req.session.user = {

@@ -1,6 +1,5 @@
 import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
 import { Layout } from "../../components/Layout.js";
-import { AcmeLogo } from "../../components/AcmeLogo.js";
 import UserSettings from "../../components/UserSettings.js";
 
 export default function App() {

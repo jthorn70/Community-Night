@@ -17,14 +17,16 @@ const myDarkTheme = createTheme({
     fonts: {}
   }
 })
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     // 2. Use at the root of your app
-    <NextUIProvider theme={myDarkTheme}>
-      <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      <NextUIProvider theme={myDarkTheme}>
         <Component {...pageProps} />
-      </SessionProvider>
-    </NextUIProvider>
+      </NextUIProvider>
+    </SessionProvider>
+
   );
 }
 

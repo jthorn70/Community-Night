@@ -4,45 +4,18 @@ import UserTable from './UserTable';
 import { useSession } from 'next-auth/react';
 
 export default function App() {
-    const MockItem = ({ text }) => {
-        return (
-            <Card css={{ h: "$24", $$cardColor: '$colors$secondary' }}>
-                <Card.Body>
-                    <Text h6 size={15} color="white" css={{ mt: 0 }}>
-                        {text}
-                    </Text>
-                </Card.Body>
-            </Card>
-        );
-    };
 
-    // function MyComponent() {
-    //     const [session, loading] = useSession();
+    const { data: session, status } = useSession();
 
-    //     if (loading) {
-    //         return <div>Loading...</div>;
-    //     }
-
-    //     if (!session) {
-    //         return <div>Please login</div>;
-    //     }
-
-    //     return <div>Welcome {session.user.name}</div>;
-    // }
-    console.log(useSession());
-
-
-
-
-
-
+    const username = session?.user?.name || 'Guest';
+    const avatar = session?.user?.image || 'https://i.pravatar.cc/150?u=a042581f4e29026704d';
 
     return (
         <Container css={{ width: 'fit-content' }}>
             <Card >
                 <User
-                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                    name='test'
+                    src={avatar}
+                    name={username}
                     zoomed
                 />
 
