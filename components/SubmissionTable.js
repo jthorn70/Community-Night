@@ -28,7 +28,7 @@ export default function SubmissionTable() {
             }
         };
         fetchEvents();
-    }, []);
+    }, [supabase]);
 
     useEffect(() => {
         setFilteredEvents(
