@@ -63,7 +63,7 @@ export default function UserTable({ session }) {
             headerLined
             color={'secondary'}
             selectionMode="multiple"
-            aria-label="Submission Form Table">
+        >
             <Table.Header columns={columns}>
                 {(column) => <Table.Column key={column.key}>{column.label}</Table.Column>}
             </Table.Header>

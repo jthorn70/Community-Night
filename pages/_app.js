@@ -2,6 +2,7 @@
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 import { SessionProvider } from 'next-auth/react';
 
+
 const myDarkTheme = createTheme({
   type: 'dark',
   theme: {
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <Component {...pageProps} />
       </NextUIProvider>
     </SessionProvider>
+
   );
 }
 
