@@ -28,7 +28,7 @@ export default function UserTable({ session }) {
             }
         };
         fetchEvents();
-    }, [supabase]);
+    }, [supabase, profileName]);
 
     useEffect(() => {
         setFilteredEvents(
