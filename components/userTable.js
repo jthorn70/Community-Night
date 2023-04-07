@@ -20,7 +20,7 @@ export default function UserTable({ session }) {
             let { data, error } = await supabase
                 .from('Submissions')
                 .select('*')
-                .eq('name', 'jboondock');
+                .eq('name', profileName);
             if (error) console.log('error', error);
             else {
                 setUser(data);
