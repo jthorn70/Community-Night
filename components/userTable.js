@@ -13,7 +13,7 @@ export default function UserTable({ session }) {
     // const profileName = session.user.name;
     // console.log(session?.user?.name)
     const profileName = session?.user?.name
-    console.log("name:", profileName);
+    // console.log("name:", profileName);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -62,8 +62,7 @@ export default function UserTable({ session }) {
             lined
             headerLined
             color={'secondary'}
-            selectionMode="multiple"
-        >
+            aria-label="User Form Table">
             <Table.Header columns={columns}>
                 {(column) => <Table.Column key={column.key}>{column.label}</Table.Column>}
             </Table.Header>

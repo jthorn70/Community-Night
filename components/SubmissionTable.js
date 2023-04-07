@@ -24,7 +24,7 @@ export default function SubmissionTable() {
             if (error) console.log('error', error);
             else {
                 setEvents(data);
-                console.log(data)
+                // console.log(data)
             }
         };
         fetchEvents();
