@@ -1,7 +1,6 @@
 import { Table, Link } from "@nextui-org/react";
 import { createClient } from '@supabase/supabase-js';
 import { React, useEffect, useState } from 'react';
-import { getSession } from 'next-auth/client';
 
 export default function UserTable({ session }) {
 
@@ -11,16 +10,18 @@ export default function UserTable({ session }) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey);
+    // const profileName = session.user.name;
+    // console.log(session?.user?.name)
+    const profileName = session?.user?.name
+    console.log("name:", profileName);
+
 
     useEffect(() => {
-        const profileName = session?.user?.name;
-
         const fetchEvents = async () => {
             let { data, error } = await supabase
                 .from('Submissions')
                 .select('*')
-                .eq('name', profileName);
-            console.log(profileName)
+                .eq('name', 'jboondock');
             if (error) console.log('error', error);
             else {
                 setUser(data);
@@ -28,7 +29,7 @@ export default function UserTable({ session }) {
             }
         };
         fetchEvents();
-    }, [session]);
+    }, []);
 
     useEffect(() => {
         setFilteredEvents(
@@ -86,21 +87,4 @@ export default function UserTable({ session }) {
             </Table.Body>
         </Table>
     )
-}
-
-export async function getServerSideProps(context) {
-    const session = await getSession(context);
-
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            },
-        };
-    }
-
-    return {
-        props: { session },
-    };
 }

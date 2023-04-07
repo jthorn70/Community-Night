@@ -1,6 +1,5 @@
 import { Navbar, Link, Text, Button, Avatar, Dropdown } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
-import { AcmeLogo } from "../components/AcmeLogo.js";
 import Home from "../components/Home.js";
 import { useRouter } from 'next/router';
 

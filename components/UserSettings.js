@@ -24,10 +24,10 @@ export default function App() {
                         <Card css={{ h: "$24", $$cardColor: '$colors$secondary', height: 'fit-content' }}>
                             <Card.Body>
                                 <Text h6 size={15} color="white" css={{ mt: 0 }}>
-                                    All Time Submissions: 0
+                                    Lorum ipsum
                                 </Text>
                                 <Text h6 size={15} color="white" css={{ mt: 0 }}>
-                                    Community Nights Entered: 0
+                                    Lorum ipsum
                                 </Text>
                             </Card.Body>
                         </Card>
@@ -36,7 +36,7 @@ export default function App() {
                         <Card css={{ h: "$24", $$cardColor: '$colors$secondary', height: 'fit-content' }}>
                             <Card.Body>
                                 <Text h6 size={15} color="white" css={{ mt: 0 }}>
-                                    Graphs here? idk
+                                    Lorum ipsum
                                 </Text>
 
                             </Card.Body>
@@ -52,7 +52,7 @@ export default function App() {
                 <Text h2>Your Submissions</Text>
 
             </Grid>
-            <UserTable />
+            <UserTable session={session} />
         </Container>
     );
 }

@@ -2,21 +2,12 @@ import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
 import { AcmeLogo } from "../components/AcmeLogo.js";
 import { Content } from "../components/Content.js";
-
+import { useSession } from 'next-auth/react'
 
 export default function App() {
-  const collapseItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+
+
+  const { data: session, status } = useSession();
 
   return (
     <Layout>
@@ -141,7 +132,7 @@ export default function App() {
           ))}
         </Navbar.Collapse>
       </Navbar> */}
-      <Content />
+      <Content session={session} status={status} />
     </Layout>
   );
 }

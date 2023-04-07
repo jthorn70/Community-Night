@@ -6,11 +6,13 @@ import styles from '../components/Form.module.css';
 
 
 
-export default function Form() {
+export default function Form({ session, status }) {
     // Supabase
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const profileName = session?.user?.name
 
     const [username, setName] = useState('');
     const [videoLink, setVideoLink] = useState('');
@@ -89,9 +91,11 @@ export default function Form() {
                                 <Input
                                     clearable
                                     bordered
+                                    readOnly
                                     label="Username"
                                     type="text"
                                     name="username"
+                                    initialValue={profileName}
                                     required
                                     status={formValid ? "success" : "secondary"}
                                 />
