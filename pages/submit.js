@@ -2,25 +2,36 @@ import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
 import { AcmeLogo } from "../components/AcmeLogo.js";
 import { Content } from "../components/Content.js";
-
+import { useSession } from 'next-auth/react'
 
 export default function App() {
-  const collapseItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+
+
+  const { data: session, status } = useSession();
 
   return (
     <Layout>
-      <Navbar shouldHideOnScroll="true" isBordered variant="sticky">
+      <Navbar isCompact isBordered variant="sticky">
+        <Navbar.Brand>
+          {/* <AcmeLogo /> */}
+          <Text b color="inherit" hideIn="xs">
+            Community Night
+          </Text>
+        </Navbar.Brand>
+        <Navbar.Content hideIn="xs" variant="underline">
+          <Navbar.Link href="/">Home</Navbar.Link>
+          <Navbar.Link isActive href="/submit">Submit</Navbar.Link>
+          <Navbar.Link href="/viewList">List</Navbar.Link>
+          <Navbar.Link href="/profile/settings">My Profile</Navbar.Link>
+        </Navbar.Content>
+        <Navbar.Content>
+          <Navbar.Link color="inherit" href="#">
+            Login
+          </Navbar.Link>
+
+        </Navbar.Content>
+      </Navbar>
+      {/* <Navbar shouldHideOnScroll="true" isBordered variant="sticky">
         <Navbar.Toggle showIn="xs" />
         <Navbar.Brand
           css={{
@@ -120,8 +131,8 @@ export default function App() {
             </Navbar.CollapseItem>
           ))}
         </Navbar.Collapse>
-      </Navbar>
-      <Content />
+      </Navbar> */}
+      <Content session={session} status={status} />
     </Layout>
   );
 }

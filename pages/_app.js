@@ -1,5 +1,7 @@
 // 1. import `NextUIProvider` component
 import { createTheme, NextUIProvider } from '@nextui-org/react';
+import { SessionProvider } from 'next-auth/react';
+import { SSRProvider } from '@react-aria/ssr';
 
 const myDarkTheme = createTheme({
   type: 'dark',
@@ -16,12 +18,17 @@ const myDarkTheme = createTheme({
     fonts: {}
   }
 })
-function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     // 2. Use at the root of your app
-    <NextUIProvider theme={myDarkTheme}>
-      <Component {...pageProps} />
-    </NextUIProvider>
+    <SSRProvider>
+      <SessionProvider session={session}>
+        <NextUIProvider theme={myDarkTheme}>
+          <Component {...pageProps} />
+        </NextUIProvider>
+      </SessionProvider>
+    </SSRProvider>
   );
 }
 
