@@ -1,6 +1,6 @@
 import { Container, Card, Row, Col, Link, Table, Text, User, Grid } from "@nextui-org/react";
 import React from 'react';
-import UserTable from './UserTable';
+import UserTable from './userTable';
 import { useSession } from 'next-auth/react';
 
 export default function App() {
