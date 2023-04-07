@@ -24,7 +24,7 @@ export default function App() {
             const scope = 'identify'; // Request only the "identify" scope for now
 
             // Redirect the user to Discord's OAuth authorization endpoint
-            window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1090359375010467960&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fcallback%2Fdiscord&response_type=code&scope=identify';
+            window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1090359375010467960&redirect_uri=https%3A%2F%2Fcommunity-night.vercel.app%2Fapi%2Fauth%2Fcallback%2Fdiscord&response_type=code&scope=identify';
         };
 
         return (
