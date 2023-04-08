@@ -18,7 +18,7 @@ export default function App() {
                     name={username}
                     zoomed
                 />
-
+                {/* keeping grid for potential future use */}
                 {/* <Grid.Container gap={2} >
                     <Grid xs={3}>
                         <Card css={{ h: "$24", $$cardColor: '$colors$secondary', height: 'fit-content' }}>
@@ -50,7 +50,6 @@ export default function App() {
             </Card>
             <Grid justify="center" xs={12}>
                 <Text h2>Your Submissions</Text>
-
             </Grid>
             <UserTable session={session} status={status} />
         </Container>

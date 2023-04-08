@@ -177,9 +177,6 @@ export default function Form({ session, status }) {
 
                                 </Modal.Footer>
                             </Modal>
-
-                            {/* <ModalForm></ModalForm> */}
-
                         </Grid.Container>
 
                     </form>

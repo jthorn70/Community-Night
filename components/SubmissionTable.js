@@ -13,10 +13,6 @@ export default function SubmissionTable() {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const selectedValue = React.useMemo(
-        () => Array.from(selected).join(', ').replaceAll('_', ' '),
-        [selected]
-    );
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -114,9 +110,7 @@ export default function SubmissionTable() {
                             )}
                         </Table.Body>
                     </Table>
-
                 </Grid>
-
             </Grid.Container>
 
         </>

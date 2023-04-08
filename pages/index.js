@@ -4,19 +4,14 @@ import Home from "../components/Home.js";
 import DiscordLogin from "../components/DiscordLogin.js";
 import { useSession } from "next-auth/react";
 
-
-
 export default function App() {
+
     const { data: session, status } = useSession();
-
-
 
     return (
         <Layout>
-
             <Navbar isCompact isBordered variant="sticky">
                 <Navbar.Brand>
-                    {/* <AcmeLogo /> */}
                     <Text b color="inherit" hideIn="xs">
                         Community Night
                     </Text>
@@ -31,8 +26,6 @@ export default function App() {
                     <DiscordLogin session={session} status={status}></DiscordLogin>
                 </Navbar.Content>
             </Navbar>
-
-
             <Home />
         </Layout>
     );

@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
 
-
 export default function ModalForm() {
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);

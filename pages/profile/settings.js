@@ -11,7 +11,6 @@ export default function App() {
         <Layout>
             <Navbar isCompact isBordered variant="sticky">
                 <Navbar.Brand>
-                    {/* <AcmeLogo /> */}
                     <Text b color="inherit" hideIn="xs">
                         Community Night
                     </Text>
@@ -24,8 +23,6 @@ export default function App() {
                 </Navbar.Content>
                 <Navbar.Content>
                     <DiscordLogin session={session} status={status}></DiscordLogin>
-
-
                 </Navbar.Content>
             </Navbar>
             <UserSettings></UserSettings>

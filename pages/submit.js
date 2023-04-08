@@ -6,7 +6,6 @@ import DiscordLogin from "../components/DiscordLogin.js";
 
 export default function App() {
 
-
   const { data: session, status } = useSession();
 
   return (
@@ -28,7 +27,6 @@ export default function App() {
           <DiscordLogin session={session} status={status}></DiscordLogin>
         </Navbar.Content>
       </Navbar>
-
       <Content session={session} status={status} />
     </Layout>
   )
