@@ -1,20 +1,12 @@
 import { Navbar, Link, Text, Avatar, Dropdown, Table } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
-import { AcmeLogo } from "../components/AcmeLogo.js";
+import DiscordLogin from "../components/discordLogin.js";
 import SubmissionTable from "../components/SubmissionTable.js";
+import { useSession } from "next-auth/react";
+
 export default function App() {
-    const collapseItems = [
-        "Profile",
-        "Dashboard",
-        "Activity",
-        "Analytics",
-        "System",
-        "Deployments",
-        "My Settings",
-        "Team Settings",
-        "Help & Feedback",
-        "Log Out",
-    ];
+    const { data: session, status } = useSession();
+
 
     return (
         <Layout>
@@ -32,10 +24,7 @@ export default function App() {
                     <Navbar.Link href="/profile/settings">My Profile</Navbar.Link>
                 </Navbar.Content>
                 <Navbar.Content>
-                    <Navbar.Link color="inherit" href="#">
-                        Login
-                    </Navbar.Link>
-
+                    <DiscordLogin session={session} status={status}></DiscordLogin>
                 </Navbar.Content>
             </Navbar>
 

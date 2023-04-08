@@ -1,36 +1,15 @@
-import { Navbar, Link, Text, Button, Avatar, Dropdown } from "@nextui-org/react";
+import { Navbar, Text } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
 import Home from "../components/Home.js";
-import { useRouter } from 'next/router';
+import DiscordLogin from "../components/discordLogin.js";
+import { useSession } from "next-auth/react";
 
 
 
 export default function App() {
-    const collapseItems = [
-        "Profile",
-        "Dashboard",
-        "Activity",
-        "Analytics",
-        "System",
-        "Deployments",
-        "My Settings",
-        "Log Out",
-    ];
+    const { data: session, status } = useSession();
 
-    function LoginButton() {
-        const router = useRouter();
 
-        const handleLoginClick = () => {
-            const scope = 'identify'; // Request only the "identify" scope for now
-
-            // Redirect the user to Discord's OAuth authorization endpoint
-            window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1090359375010467960&redirect_uri=https%3A%2F%2Fcommunity-night.vercel.app%2Fapi%2Fauth%2Fcallback%2Fdiscord&response_type=code&scope=identify';
-        };
-
-        return (
-            <button onClick={handleLoginClick}>Log in with Discord</button>
-        );
-    }
 
     return (
         <Layout>
@@ -49,10 +28,7 @@ export default function App() {
                     <Navbar.Link href="/profile/settings">My Profile</Navbar.Link>
                 </Navbar.Content>
                 <Navbar.Content>
-                    <Navbar.Link color="inherit" href="#">
-                        Login
-                    </Navbar.Link>
-                    <LoginButton></LoginButton>
+                    <DiscordLogin session={session} status={status}></DiscordLogin>
                 </Navbar.Content>
             </Navbar>
 

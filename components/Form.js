@@ -1,4 +1,4 @@
-import { Card, Button, Text, Dropdown, Textarea, Input, Grid, Modal } from '@nextui-org/react';
+import { Card, Button, Text, Dropdown, Textarea, Input, Grid, Modal, Tooltip } from '@nextui-org/react';
 import React from "react";
 import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
@@ -88,17 +88,19 @@ export default function Form({ session, status }) {
 
                         <Grid.Container gap={1} justify="center">
                             <Grid>
-                                <Input
-                                    clearable
-                                    bordered
-                                    readOnly
-                                    label="Username"
-                                    type="text"
-                                    name="username"
-                                    initialValue={profileName}
-                                    required
-                                    status={formValid ? "success" : "secondary"}
-                                />
+                                <Tooltip content={"Login with discord to fill out this field"} color='secondary' placement='bottom'>
+                                    <Input
+                                        clearable
+                                        bordered
+                                        readOnly
+                                        label="Username"
+                                        type="text"
+                                        name="username"
+                                        initialValue={profileName}
+                                        required
+                                        status={formValid ? "success" : "secondary"}
+                                    />
+                                </Tooltip>
                             </Grid>
                         </Grid.Container>
 
@@ -165,7 +167,7 @@ export default function Form({ session, status }) {
                                         <Text b size={23}>
                                             {formValid ? " Accepted!" : " Failed"}
                                         </Text>
-                                        <Text>{formValid ? "See you at Community Night!" : "Please Fill out the form correctly."}</Text>
+                                        <Text>{formValid ? "See you at Community Night!" : "Please Fill out the form correctly or check if you are logged in"}</Text>
                                     </Text>
                                 </Modal.Header>
                                 <Modal.Body>

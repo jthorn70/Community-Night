@@ -8,7 +8,7 @@ export default function Home() {
                 width="100%"
                 height="100%"
                 maxDelay={10000}
-                src="https://images.squarespace-cdn.com/content/5dae0fa47b94562285575e83/1571778626082-N2Q5ZFC622CK6L80JMMS/Community+Night.png?content-type=image%2Fpng"
+                src="https://img5.goodfon.com/original/2550x1800/8/1a/shtory-krasnye-zanaves.jpg"
                 alt="Default Image"
             />
         </div>

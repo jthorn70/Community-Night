@@ -2,6 +2,7 @@ import { Navbar, Text } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
 import { Content } from "../components/Content.js";
 import { useSession } from 'next-auth/react'
+import DiscordLogin from "../components/discordLogin.js";
 
 export default function App() {
 
@@ -24,10 +25,7 @@ export default function App() {
           <Navbar.Link href="/profile/settings">My Profile</Navbar.Link>
         </Navbar.Content>
         <Navbar.Content>
-          <Navbar.Link color="inherit" href="#">
-            Login
-          </Navbar.Link>
-
+          <DiscordLogin session={session} status={status}></DiscordLogin>
         </Navbar.Content>
       </Navbar>
 
