@@ -1,6 +1,6 @@
 import { Navbar, Link, Text, Avatar, Dropdown, Table } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
-import DiscordLogin from "../components/discordLogin.js";
+import DiscordLogin from "../components/DiscordLogin.js";
 import SubmissionTable from "../components/SubmissionTable.js";
 import { useSession } from "next-auth/react";
 

@@ -1,7 +1,7 @@
 import { Navbar, Text } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
 import Home from "../components/Home.js";
-import DiscordLogin from "../components/discordLogin.js";
+import DiscordLogin from "../components/DiscordLogin.js";
 import { useSession } from "next-auth/react";
 
 
