@@ -62,8 +62,7 @@ export default function Form({ session, status }) {
         console.log("Submission successful!")
         setSubmissionSuccess(true);
         setIsModalOpen(true);
-        console.log("Modal open: ", isModalOpen);
-        console.log("Submission success: ", submissionSuccess);
+
 
         setName('');
         setVideoLink('');
@@ -91,7 +90,6 @@ export default function Form({ session, status }) {
                             <Grid>
                                 <Tooltip content={"Login with discord to fill out this field"} color='secondary' placement='bottom'>
                                     <Input
-                                        clearable
                                         bordered
                                         readOnly
                                         label="Username"
