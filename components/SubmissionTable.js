@@ -78,8 +78,8 @@ export default function SubmissionTable({ session, status }) {
         },
         isModerator
             ? {
-                key: 'admin-controls',
-                label: 'Admin Controls',
+                key: 'actions',
+                label: 'Actions',
             }
             : {
                 key: '',
@@ -143,7 +143,7 @@ export default function SubmissionTable({ session, status }) {
                                                     {item[columnKey]}
                                                 </Link>
                                             </Table.Cell>
-                                        ) : columnKey === 'admin-controls' ? (
+                                        ) : columnKey === 'actions' ? (
                                             isModerator ? (
                                                 <Table.Cell>
                                                     <Tooltip content="Delete">

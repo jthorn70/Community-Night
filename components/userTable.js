@@ -43,15 +43,7 @@ export default function UserTable({ session, status }) {
     const [videoLink, setLink] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const profileName = session?.user?.name
-
-
-
-    // console.log("user", profileName)
-    // console.log("videolink", videoLink)
-    // console.log("description", description)
-    // console.log("category", category)
-
+    const profileName = session?.user?.name;
 
 
     useEffect(() => {
@@ -175,9 +167,6 @@ export default function UserTable({ session, status }) {
                                                 onClose={closeHandler}
                                             >
                                                 <Modal.Header>
-                                                    {/* <Text id="modal-title" size={18}>
-                                                        Edit Item
-                                                    </Text> */}
                                                     <Text h2>Edit Submission</Text>
                                                 </Modal.Header>
                                                 <Modal.Body>
