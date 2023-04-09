@@ -31,9 +31,14 @@ export default function UserTable({ session, status }) {
     const [videoLink, setLink] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-
-
     const profileName = session?.user?.name
+
+    // console.log("user", profileName)
+    // console.log("videolink", videoLink)
+    // console.log("description", description)
+    // console.log("category", category)
+
+
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -69,25 +74,19 @@ export default function UserTable({ session, status }) {
         }
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        if (name === "link") setLink(value);
-        if (name === "description") setDescription(value);
-        if (name === "category") setCategory(value);
 
-        // console.log(value)
 
-    };
-    console.log(category)
-    console.log(description)
-    console.log(videoLink)
 
     const handleUpdate = async (id) => {
+        console.log(`Submission with id ${id} selected !`);
+
         const { data, error } = await supabase
             .from("Submissions")
-            .update({
+            .update([{
                 link: videoLink,
-            })
+                description: description,
+                category: category
+            }])
             .eq("id", id);
         if (error) console.log("Supabase error", error);
         else {
@@ -174,7 +173,7 @@ export default function UserTable({ session, status }) {
                                                     />
                                                     <Input
                                                         aria-label="Link"
-                                                        onChange={handleInputChange}
+                                                        onChange={(event) => setLink(event.target.value)}
                                                         clearable
                                                         bordered
                                                         fullWidth
@@ -185,7 +184,7 @@ export default function UserTable({ session, status }) {
                                                     />
                                                     <Textarea
                                                         aria-label="Description"
-                                                        onChange={handleInputChange}
+                                                        onChange={(event) => setDescription(event.target.value)}
                                                         clearable
                                                         bordered
                                                         fullWidth
@@ -194,7 +193,7 @@ export default function UserTable({ session, status }) {
                                                         placeholder="Description"
                                                     />
 
-                                                    <Dropdown name="category" required onChange={handleInputChange}>
+                                                    <Dropdown name="category" required onChange={(event) => setCategory(event.target.value)}>
 
                                                         <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
                                                             {selectedValue}
@@ -206,6 +205,7 @@ export default function UserTable({ session, status }) {
                                                             selectionMode="single"
                                                             selectedKeys={selected}
                                                             onSelectionChange={setSelected}
+
                                                         >
                                                             <Dropdown.Item key="skating">Skating</Dropdown.Item>
                                                             <Dropdown.Item key="meme">Meme</Dropdown.Item>
@@ -217,7 +217,7 @@ export default function UserTable({ session, status }) {
                                                     <Button auto flat color="error" onPress={closeHandler}>
                                                         Cancel
                                                     </Button>
-                                                    <Button auto onClick={handleUpdate} onPress={handleUpdate}>
+                                                    <Button auto onClick={() => handleUpdate(item.id)} onPress={() => handleUpdate(item.id)}>
                                                         Update
                                                     </Button>
                                                 </Modal.Footer>

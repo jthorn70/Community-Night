@@ -50,6 +50,7 @@ export default function Form({ session, status }) {
         if (error) {
             console.log("Error: ", error);
             return;
+
         }
 
         if (!username || !videoLink || !description || !category) {
