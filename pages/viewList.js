@@ -26,7 +26,7 @@ export default function App() {
                     <DiscordLogin session={session} status={status}></DiscordLogin>
                 </Navbar.Content>
             </Navbar>
-            <SubmissionTable />
+            <SubmissionTable session={session} status={status} />
         </Layout>
     );
 }

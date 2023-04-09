@@ -1,17 +1,44 @@
-import { Link, Grid, Table, Dropdown } from '@nextui-org/react';
+import { Link, Grid, Table, Dropdown, Tooltip } from '@nextui-org/react';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import { DeleteIcon } from "./DeleteIcon";
+import { IconButton } from "./IconButton";
 
-export default function SubmissionTable() {
+export default function SubmissionTable({ session, status }) {
     const [eventName, setEventName] = useState('Community Night 1');
     const [selected, setSelected] = React.useState('Community Night 1');
     const [events, setEvents] = useState([]);
     const [filteredEvents, setFilteredEvents] = useState([]);
+    const [user, setUser] = useState([]);
+
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const moderators = ['jboondock', 'jbooogie', 'NTLX', 'olay', 'contra']
+    const [isModerator, setIsModerator] = useState(false);
+    const profileName = session?.user?.name;
+
+    const handleDelete = async (id) => {
+        let { data, error } = await supabase
+            .from("Submissions")
+            .delete()
+            .eq("id", id);
+        if (error) console.log("error", error);
+        else {
+            console.log(`Submission with id ${id} deleted successfully!`);
+            // Update the `user` state to remove the deleted row
+            setUser((prevUser) => prevUser.filter((item) => item.id !== id));
+        }
+    };
+
+    // check to see if the user is a moderator
+    useEffect(() => {
+        const isModerator = moderators.includes(profileName);
+        setIsModerator(isModerator);
+    }, [profileName]);
 
 
     useEffect(() => {
@@ -24,7 +51,7 @@ export default function SubmissionTable() {
             }
         };
         fetchEvents();
-    }, [supabase]);
+    }, [supabase, setEvents]);
 
     useEffect(() => {
         setFilteredEvents(
@@ -49,8 +76,17 @@ export default function SubmissionTable() {
             key: 'category',
             label: 'Category',
         },
-
+        isModerator
+            ? {
+                key: 'admin-controls',
+                label: 'Admin Controls',
+            }
+            : {
+                key: '',
+                label: ''
+            },
     ];
+
 
     const handleSelectionChange = (value) => {
         setSelected(value);
@@ -90,8 +126,13 @@ export default function SubmissionTable() {
                     <Table
                         aria-label="Submission Form Table">
                         <Table.Header columns={columns}>
-                            {(column) => <Table.Column key={column.key}>{column.label}</Table.Column>}
+                            {(column) =>
+                                column ? (
+                                    <Table.Column key={column.key}>{column.label}</Table.Column>
+                                ) : null
+                            }
                         </Table.Header>
+
                         <Table.Body items={filteredEvents}>
                             {(item) => (
                                 <Table.Row key={item.id}>
@@ -102,6 +143,16 @@ export default function SubmissionTable() {
                                                     {item[columnKey]}
                                                 </Link>
                                             </Table.Cell>
+                                        ) : columnKey === 'admin-controls' ? (
+                                            isModerator ? (
+                                                <Table.Cell>
+                                                    <Tooltip content="Delete">
+                                                        <IconButton onClick={() => handleDelete(item.id)}>
+                                                            <DeleteIcon size={20} fill="#FF0080" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Table.Cell>
+                                            ) : null
                                         ) : (
                                             <Table.Cell>{item[columnKey]}</Table.Cell>
                                         )
@@ -109,6 +160,7 @@ export default function SubmissionTable() {
                                 </Table.Row>
                             )}
                         </Table.Body>
+
                     </Table>
                 </Grid>
             </Grid.Container>

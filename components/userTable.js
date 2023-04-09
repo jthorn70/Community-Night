@@ -8,6 +8,9 @@ import { IconButton } from "./IconButton";
 
 export default function UserTable({ session, status }) {
 
+
+
+
     const [visible, setVisible] = useState(false);
     const handler = () => setVisible(true);
 
@@ -41,6 +44,8 @@ export default function UserTable({ session, status }) {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const profileName = session?.user?.name
+
+
 
     // console.log("user", profileName)
     // console.log("videolink", videoLink)
