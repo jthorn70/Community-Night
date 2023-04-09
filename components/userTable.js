@@ -162,6 +162,7 @@ export default function UserTable({ session, status }) {
                                                 </Modal.Header>
                                                 <Modal.Body>
                                                     <Input
+                                                        required
                                                         aria-label="Name"
                                                         initialValue={profileName}
                                                         readOnly
@@ -172,6 +173,7 @@ export default function UserTable({ session, status }) {
                                                         placeholder="Name"
                                                     />
                                                     <Input
+                                                        required
                                                         aria-label="Link"
                                                         onChange={(event) => setLink(event.target.value)}
                                                         clearable
@@ -183,6 +185,7 @@ export default function UserTable({ session, status }) {
                                                         placeholder="Link"
                                                     />
                                                     <Textarea
+                                                        required
                                                         aria-label="Description"
                                                         onChange={(event) => setDescription(event.target.value)}
                                                         clearable
@@ -199,12 +202,14 @@ export default function UserTable({ session, status }) {
                                                             {selectedValue}
                                                         </Dropdown.Button>
                                                         <Dropdown.Menu
+                                                            required
                                                             aria-label="Single selection actions"
                                                             color="secondary"
                                                             disallowEmptySelection
                                                             selectionMode="single"
                                                             selectedKeys={selected}
                                                             onSelectionChange={setSelected}
+                                                            onSelectCapture={setCategory(selectedValue)}
 
                                                         >
                                                             <Dropdown.Item key="skating">Skating</Dropdown.Item>
