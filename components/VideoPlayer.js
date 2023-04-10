@@ -20,7 +20,8 @@ export default function VideoPlayer({ session, status }) {
             let { data, error } = await supabase
                 .from('Submissions')
                 .select('*')
-                .eq('eventName', 'Community Night 1');
+                .eq('eventName', 'Community Night 1')
+                .order('category')
             if (error) console.log('error', error);
             else {
                 setVideos(data.map((submission) => submission.link));

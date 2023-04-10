@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Text } from "@nextui-org/react";
+import { Grid } from "@nextui-org/react";
 
 
 const CountdownClock = ({ targetDate }) => {
