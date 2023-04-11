@@ -2,6 +2,8 @@
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 import { SessionProvider } from 'next-auth/react';
 import { Analytics } from '@vercel/analytics/react';
+import Head from "next/head";
+
 
 const myDarkTheme = createTheme({
   type: 'dark',
@@ -25,6 +27,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <SessionProvider session={session}>
       <NextUIProvider theme={myDarkTheme}>
         <Component {...pageProps} />
+        <Head>
+          <link rel="shortcut icon" href="/favicon.ico" />
+        </Head>
         <Analytics />
       </NextUIProvider>
     </SessionProvider>
