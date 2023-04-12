@@ -23,13 +23,17 @@ export default function DiscordLogin({ session, status }) {
             )}
 
             {status === 'authenticated' && (
-                <Navbar.Link onClick={handleLogout} color="inherit" href="#">
-                    <User
-                        src={avatar}
-                        name={username}
-                    />
-                    Logout
-                </Navbar.Link>
+                <>
+                    <Navbar.Link color="inherit" href="/profile/settings">
+                        <User
+                            src={avatar}
+                            name={username}
+                        />
+                    </Navbar.Link>
+                    <Navbar.Link onClick={handleLogout} color="inherit" href="#">
+                        Logout
+                    </Navbar.Link>
+                </>
             )}
 
             {status === 'unauthenticated' && (

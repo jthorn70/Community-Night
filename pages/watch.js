@@ -17,7 +17,7 @@ export default function App() {
                     </Text>
                 </Navbar.Brand>
                 <Navbar.Content hideIn="xs" variant="underline">
-                    <Navbar.Link isActive href="/">Home</Navbar.Link>
+                    <Navbar.Link href="/">Home</Navbar.Link>
                     <Navbar.Link href="/submit">Submit</Navbar.Link>
                     <Navbar.Link href="/viewList">List</Navbar.Link>
                     <Navbar.Link href="/profile/settings">My Profile</Navbar.Link>

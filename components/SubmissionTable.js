@@ -25,7 +25,8 @@ export default function SubmissionTable({ session, status }) {
         let { data, error } = await supabase
             .from("Submissions")
             .delete()
-            .eq("id", id);
+            .eq("id", id)
+
         if (error) console.log("error", error);
         else {
             console.log(`Submission with id ${id} deleted successfully!`);
@@ -43,21 +44,34 @@ export default function SubmissionTable({ session, status }) {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            let { data, error } = await supabase.from('Submissions').select('*');
+            let { data, error } = await supabase
+                .from('Submissions')
+                .select('*')
+                .order('id', { ascending: true });
             if (error) console.log('error', error);
             else {
-                setEvents(data);
-                // console.log(data)
+                const shuffledEvents = fisherYatesShuffle(data);
+                setEvents(shuffledEvents);
+                console.log(data)
             }
         };
         fetchEvents();
-    }, [supabase, setEvents]);
+    }, []);
 
     useEffect(() => {
         setFilteredEvents(
             events.filter((event) => (eventName ? event.eventName === eventName : true))
         );
     }, [events, eventName]);
+
+    const fisherYatesShuffle = (arr) => {
+        let n = arr.length;
+        for (let i = n - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    };
 
     const columns = [
         {

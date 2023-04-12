@@ -59,7 +59,7 @@ export default function UserTable({ session, status }) {
             }
         };
         fetchEvents();
-    }, [supabase, profileName]);
+    }, [profileName]);
 
     useEffect(() => {
         setFilteredEvents(
