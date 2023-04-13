@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 export default function App() {
 
     const { data: session, status } = useSession();
-    const moderators = ['jboondock', 'jbooogie', 'NTLX', 'olay', 'contra']
+    const moderators = ['jboondock', 'jboogie', 'NTLX', 'olay', 'contra']
     const [isModerator, setIsModerator] = useState(false);
 
     const username = session?.user?.name || 'Guest';

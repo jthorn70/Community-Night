@@ -17,7 +17,7 @@ export default function SubmissionTable({ session, status }) {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const moderators = ['jboondock', 'jbooogie', 'NTLX', 'olay', 'contra']
+    const moderators = ['jboondock', 'jboogie', 'NTLX', 'olay', 'contra']
     const [isModerator, setIsModerator] = useState(false);
     const profileName = session?.user?.name;
 
