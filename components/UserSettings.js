@@ -15,7 +15,7 @@ export default function App() {
     useEffect(() => {
         const isModerator = moderators.includes(username);
         setIsModerator(isModerator);
-    }, [username]);
+    }, [username, moderators]);
 
 
     return (

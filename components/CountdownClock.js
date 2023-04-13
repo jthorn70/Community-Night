@@ -25,7 +25,7 @@ const CountdownClock = ({ targetDate }) => {
             setTimeRemaining(getTimeRemaining());
         }, 1000);
         return () => clearInterval(interval);
-    }, [targetDate]);
+    }, [targetDate, getTimeRemaining]);
 
     useEffect(() => {
         const timerText = document.getElementById('timer-text');

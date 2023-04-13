@@ -39,7 +39,7 @@ export default function SubmissionTable({ session, status }) {
     useEffect(() => {
         const isModerator = moderators.includes(profileName);
         setIsModerator(isModerator);
-    }, [profileName]);
+    }, [profileName, moderators]);
 
 
     useEffect(() => {
