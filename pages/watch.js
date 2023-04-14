@@ -3,6 +3,7 @@ import { Layout } from "../components/Layout.js";
 import VideoPlayer from "../components/VideoPlayer.js";
 import DiscordLogin from "../components/DiscordLogin.js";
 import { useSession } from "next-auth/react";
+import SubmissionTable from "../components/SubmissionTable.js";
 
 export default function App() {
 
@@ -27,6 +28,7 @@ export default function App() {
                 </Navbar.Content>
             </Navbar>
             <VideoPlayer session={session} status={status} />
+            <SubmissionTable session={session} status={status} randomized={false}></SubmissionTable>
         </Layout>
     );
 }

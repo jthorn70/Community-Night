@@ -22,13 +22,18 @@ export default function App() {
         <Container css={{ width: 'fit-content' }}>
             <Card >
                 <User
+
+
                     src={avatar}
                     name={username}
                     zoomed
                 />
             </Card>
             <Grid justify="center" xs={12}>
-                <Text h2>Your Submissions</Text>
+                <Text css={{
+                    textGradient: "69deg, $blue600 -20%, $pink600 50%",
+                }}
+                    h2>Your Submissions</Text>
             </Grid>
             <UserTable session={session} status={status} />
             {isModerator && (

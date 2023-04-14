@@ -26,8 +26,11 @@ export default function DiscordLogin({ session, status }) {
                 <>
                     <Navbar.Link color="inherit" href="/profile/settings">
                         <User
+
+
                             src={avatar}
                             name={username}
+                            zoomed
                         />
                     </Navbar.Link>
                     <Navbar.Link onClick={handleLogout} color="inherit" href="#">

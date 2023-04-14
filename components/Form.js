@@ -80,10 +80,24 @@ export default function Form({ session, status }) {
     return (
         <Card isHoverable className={styles.card}>
             <Card.Body>
-                <Grid.Container justify='center'>
+                <Grid.Container justify='center' gap={1}>
+
                     <form onSubmit={handleSubmit}>
                         <Grid.Container gap={1} justify="center">
-                            <Text h2>Submit a Video</Text>
+                            <Text
+                                weight="bold" blockquote color='red'>Only Youtube & streamable links work for now.
+                            </Text>
+
+                        </Grid.Container>
+                        <Grid.Container gap={1} justify="center">
+
+                        </Grid.Container>
+                        <Grid.Container gap={1} justify="center">
+                            <Text css={{
+                                textGradient: "69deg, $blue600 -20%, $pink600 50%",
+
+                            }}
+                                h2>Submit a Video</Text>
                         </Grid.Container>
 
                         <Grid.Container gap={1} justify="center">

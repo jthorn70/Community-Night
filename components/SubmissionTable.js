@@ -5,7 +5,7 @@ import React from 'react';
 import { DeleteIcon } from "./DeleteIcon";
 import { IconButton } from "./IconButton";
 
-export default function SubmissionTable({ session, status }) {
+export default function SubmissionTable({ session, status, randomized }) {
     const [eventName, setEventName] = useState('Community Night 1');
     const [selected, setSelected] = React.useState('Community Night 1');
     const [events, setEvents] = useState([]);
@@ -47,12 +47,15 @@ export default function SubmissionTable({ session, status }) {
             let { data, error } = await supabase
                 .from('Submissions')
                 .select('*')
-                .order('id', { ascending: true });
+                .order('category');
+
             if (error) console.log('error', error);
             else {
-                const shuffledEvents = fisherYatesShuffle(data);
-                setEvents(shuffledEvents);
-                console.log(data)
+                if (randomized) {
+                    setEvents(fisherYatesShuffle(data));
+                } else {
+                    setEvents(data);
+                }
             }
         };
         fetchEvents();

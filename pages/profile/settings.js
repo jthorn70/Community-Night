@@ -11,7 +11,8 @@ export default function App() {
         <Layout>
             <Navbar isCompact isBordered variant="sticky">
                 <Navbar.Brand>
-                    <Text b color="inherit" hideIn="xs">
+                    <Text
+                        b color="inherit" hideIn="xs">
                         Community Night
                     </Text>
                 </Navbar.Brand>
