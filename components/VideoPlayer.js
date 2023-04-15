@@ -3,6 +3,7 @@ import { Grid, Button, Text } from "@nextui-org/react";
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { createClient } from '@supabase/supabase-js';
+import SubmissionCard from './SubmissionCard';
 
 
 export default function VideoPlayer({ session, status }) {
@@ -14,6 +15,10 @@ export default function VideoPlayer({ session, status }) {
     const supabase = createClient(supabaseUrl, supabaseKey);
     const profileName = session?.user?.name;
     const [videos, setVideos] = useState([]);
+    const [submitterName, setSubmitterName] = useState([]);
+    const [description, setDescription] = useState([]);
+    const [category, setCategory] = useState([]);
+
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -26,10 +31,16 @@ export default function VideoPlayer({ session, status }) {
             if (error) console.log('error', error);
             else {
                 setVideos(data.map((submission) => submission.link));
+                setSubmitterName(data.map((submission) => submission.name));
+                setDescription(data.map((submission) => submission.description));
+                setCategory(data.map((submission) => submission.category));
+                // console.log(data)
             }
         };
         fetchEvents();
     }, []);
+
+    // useEffect(() => { console.log(submitterName) }, [submitterName])
 
 
     const playPreviousVideo = () => {
@@ -49,7 +60,12 @@ export default function VideoPlayer({ session, status }) {
         <>
             <Grid.Container justify='center' gap={1}>
                 <Grid justify='center' xs={12}>
-                    <Text>{currentVideoIndex}/{videos.length}</Text>
+                    <Text>{currentVideoIndex + 1}/{videos.length}</Text>
+                    <SubmissionCard
+                        videoUrl={videos[currentVideoIndex]}
+                        username={submitterName[currentVideoIndex]}
+                        videoDesc={description[currentVideoIndex]}
+                        videoCat={category[currentVideoIndex]} />
                 </Grid>
             </Grid.Container>
             <Grid.Container justify='center' gap={1}>

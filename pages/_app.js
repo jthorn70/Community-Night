@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
 
 
-  useEffect(() => { console.log(communityNight) }, [communityNight]);
+  // useEffect(() => { console.log(communityNight) }, [communityNight]);
 
   return (
     // 2. Use at the root of your app
