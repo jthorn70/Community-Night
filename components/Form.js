@@ -45,7 +45,7 @@ export default function Form({ session, status }) {
 
         const { data, error } = await supabase
             .from('Submissions')
-            .insert([{ name: username, link: videoLink, description, category, eventName: "Community Night 1" }]);
+            .insert([{ name: username, link: videoLink, description, category, eventName: "Community Night 2" }]);
 
         if (error) {
             console.log("Error: ", error);
