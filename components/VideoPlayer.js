@@ -58,17 +58,27 @@ export default function VideoPlayer({ session, status }) {
 
     return (
         <>
-            <Grid.Container justify='center' gap={1}>
+            <Grid.Container justify='center' gap={0}>
                 <Grid justify='center' xs={12}>
                     <Text>{currentVideoIndex + 1}/{videos.length}</Text>
+                </Grid>
+            </Grid.Container>
+            <Grid.Container justify='center' gap={0}>
+                <Grid justify='flex-end' xs={3}>
+                    <Button onPress={playPreviousVideo}>Previous</Button>
+                </Grid>
+                <Grid justify='center' xs={6}>
                     <SubmissionCard
                         videoUrl={videos[currentVideoIndex]}
                         username={submitterName[currentVideoIndex]}
                         videoDesc={description[currentVideoIndex]}
                         videoCat={category[currentVideoIndex]} />
                 </Grid>
+                <Grid justify='flex-start' xs={3}>
+                    <Button onPress={playNextVideo}>Next</Button>
+                </Grid>
             </Grid.Container>
-            <Grid.Container justify='center' gap={1}>
+            <Grid.Container justify='center' gap={0}>
 
                 <Grid justify='center' xs={12}>
                     <ReactPlayer
@@ -80,12 +90,11 @@ export default function VideoPlayer({ session, status }) {
                 </Grid>
 
             </Grid.Container>
-            <Grid.Container justify='center' gap={4}>
+            {/* <Grid.Container justify='center' gap={4}>
                 <Button.Group>
-                    <Button onPress={playPreviousVideo}>Previous</Button>
-                    <Button onPress={playNextVideo}>Next</Button>
+
                 </Button.Group>
-            </Grid.Container >
+            </Grid.Container > */}
         </>
     );
 }
