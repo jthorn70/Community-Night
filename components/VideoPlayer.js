@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button } from "@nextui-org/react";
+import { Grid, Button, Text } from "@nextui-org/react";
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { createClient } from '@supabase/supabase-js';
@@ -47,7 +47,12 @@ export default function VideoPlayer({ session, status }) {
 
     return (
         <>
-            <Grid.Container justify='center' gap={2}>
+            <Grid.Container justify='center' gap={1}>
+                <Grid justify='center' xs={12}>
+                    <Text>{currentVideoIndex}/{videos.length}</Text>
+                </Grid>
+            </Grid.Container>
+            <Grid.Container justify='center' gap={1}>
 
                 <Grid justify='center' xs={12}>
                     <ReactPlayer
