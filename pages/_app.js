@@ -3,6 +3,7 @@ import { createTheme, NextUIProvider } from '@nextui-org/react';
 import { SessionProvider } from 'next-auth/react';
 import { Analytics } from '@vercel/analytics/react';
 import Head from "next/head";
+import { createContext, useEffect, useState } from 'react';
 
 
 const myDarkTheme = createTheme({
@@ -21,19 +22,40 @@ const myDarkTheme = createTheme({
   }
 })
 
+export const GlobalContext = createContext();
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+
+  const [communityNight, setCommunityNight] = useState();
+
+  useEffect(() => {
+    localStorage.setItem('communityNight', communityNight);
+  }, [communityNight]);
+
+  useEffect(() => {
+    const storedCommunityNight = localStorage.getItem('communityNight');
+    if (storedCommunityNight) {
+      setCommunityNight(storedCommunityNight);
+    }
+  }, []);
+
+
+
+  useEffect(() => { console.log(communityNight) }, [communityNight]);
+
   return (
     // 2. Use at the root of your app
-    <SessionProvider session={session}>
-      <NextUIProvider theme={myDarkTheme}>
-        <Component {...pageProps} />
-        <Head>
-          <link rel="shortcut icon" href="/favicon.ico" />
-        </Head>
-        <Analytics />
-      </NextUIProvider>
-    </SessionProvider>
-
+    <GlobalContext.Provider value={{ communityNight, setCommunityNight }}>
+      <SessionProvider session={session}>
+        <NextUIProvider theme={myDarkTheme}>
+          <Component {...pageProps} />
+          <Head>
+            <link rel="shortcut icon" href="/favicon.ico" />
+          </Head>
+          <Analytics />
+        </NextUIProvider>
+      </SessionProvider>
+    </GlobalContext.Provider>
   );
 }
 

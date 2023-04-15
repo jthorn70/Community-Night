@@ -2,8 +2,11 @@ import { Grid } from "@nextui-org/react";
 import dynamic from 'next/dynamic';
 import CountdownClock from "./CountdownClock";
 
+
 export default function Home() {
     const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
+
+
     return (
 
         <Grid.Container justify="center" gap={2}>

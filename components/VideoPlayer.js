@@ -22,7 +22,7 @@ export default function VideoPlayer({ session, status }) {
                 .select('*')
                 .eq('eventName', 'Community Night 1')
                 .order('category')
-                .limit(30)
+                .limit(45)
             if (error) console.log('error', error);
             else {
                 setVideos(data.map((submission) => submission.link));

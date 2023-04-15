@@ -4,10 +4,20 @@ import VideoPlayer from "../components/VideoPlayer.js";
 import DiscordLogin from "../components/DiscordLogin.js";
 import { useSession } from "next-auth/react";
 import SubmissionTable from "../components/SubmissionTable.js";
+import { useState, useEffect } from "react";
 
 export default function App() {
 
     const { data: session, status } = useSession();
+
+    const moderators = ['jboondock', 'jboogie', 'NTLX', 'olay', 'contra']
+    const [isModerator, setIsModerator] = useState(false);
+    const username = session?.user?.name || 'Guest';
+
+    useEffect(() => {
+        const isModerator = moderators.includes(username);
+        setIsModerator(isModerator);
+    }, [username]);
 
     return (
         <Layout>
@@ -28,7 +38,8 @@ export default function App() {
                 </Navbar.Content>
             </Navbar>
             <VideoPlayer session={session} status={status} />
-            <SubmissionTable session={session} status={status} randomized={false}></SubmissionTable>
+            {isModerator && <SubmissionTable session={session} status={status} randomized={true} />}
+            {/* <SubmissionTable session={session} status={status} randomized={false}></SubmissionTable> */}
         </Layout>
     );
 }

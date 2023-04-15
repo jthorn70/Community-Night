@@ -1,7 +1,10 @@
-import { Container, Card, Text, User, Grid, Button, Link } from "@nextui-org/react";
-import React, { useEffect, useState } from 'react';
+import { Container, Card, Text, User, Grid, Button, Link, Input } from "@nextui-org/react";
+import React, { useEffect, useState, useContext } from 'react';
 import UserTable from './userTable';
 import { useSession } from 'next-auth/react';
+import { GlobalContext } from "../pages/_app";
+import { SendButton } from "./SendButton.js";
+import { SendIcon } from "./SendIcon";
 
 export default function App() {
 
@@ -12,11 +15,17 @@ export default function App() {
     const username = session?.user?.name || 'Guest';
     const avatar = session?.user?.image || 'https://i.pravatar.cc/150?u=a042581f4e29026704d';
 
+    const { communityNight, setCommunityNight } = useContext(GlobalContext);
+
     useEffect(() => {
         const isModerator = moderators.includes(username);
         setIsModerator(isModerator);
     }, [username]);
 
+    const handleCommunityNight = async (event) => {
+        setCommunityNight(event.target.value);
+
+    }
 
     return (
         <Container css={{ width: 'fit-content' }}>
@@ -41,6 +50,20 @@ export default function App() {
                     <Button >Start Community Night</Button>
                 </Link>
             )}
-        </Container>
+            {/* {isModerator && (
+
+                <Input
+                    onChange={handleCommunityNight}
+                    clearable
+                    contentRightStyling={false}
+                    placeholder={communityNight}
+                    contentRight={
+                        <SendButton  >
+                            <SendIcon />
+                        </SendButton>
+                    }
+                />
+            )} */}
+        </Container >
     );
 }
