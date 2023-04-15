@@ -250,7 +250,7 @@ export default function UserTable({ session, status }) {
                                                                         onSelectionChange={setSelected}
                                                                         onSelectCapture={setCategory(selectedValue)}
                                                                     >
-                                                                        <Dropdown.Item key="skating">Skating</Dropdown.Item>
+                                                                        <Dropdown.Item key="Skating">Skating</Dropdown.Item>
                                                                         <Dropdown.Item key="meme">Meme</Dropdown.Item>
                                                                         <Dropdown.Item key="other">Other</Dropdown.Item>
                                                                     </Dropdown.Menu>
