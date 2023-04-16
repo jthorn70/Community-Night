@@ -1,21 +1,50 @@
-import { Container, Card, Text, User, Grid, Button, Link, Input } from "@nextui-org/react";
-import React, { useEffect, useState, useContext } from 'react';
+import { Container, Card, Text, User, Grid, Button, Link, Input, Tooltip } from "@nextui-org/react";
+import { useEffect, useState } from 'react';
 import UserTable from './userTable';
 import { useSession } from 'next-auth/react';
-import { GlobalContext } from "../pages/_app";
 import { SendButton } from "./SendButton.js";
 import { SendIcon } from "./SendIcon";
+import { createClient } from '@supabase/supabase-js';
+
 
 export default function App() {
 
     const { data: session, status } = useSession();
     const moderators = ['jboondock', 'jboogie', 'NTLX', 'olay', 'contra']
     const [isModerator, setIsModerator] = useState(false);
+    const [eventName, setEventName] = useState('');
+    const [eventNameChange, setEventNameChange] = useState('');
+
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+
 
     const username = session?.user?.name || 'Guest';
     const avatar = session?.user?.image || 'https://i.pravatar.cc/150?u=a042581f4e29026704d';
 
-    const { communityNight, setCommunityNight } = useContext(GlobalContext);
+
+
+    const getEventName = async () => {
+        const { data, error } = await supabase
+            .from('event')
+            .select('*')
+            .eq('id', 1)
+        if (error) console.log('error', error);
+        else {
+            // get value of event name from data
+            setEventName(data[0].name);
+        }
+    }
+
+    const handleInputChange = (e) => {
+        setEventNameChange(e.target.value);
+    };
+
+    useEffect(() => {
+        getEventName();
+    }, [eventName]);
 
     useEffect(() => {
         const isModerator = moderators.includes(username);
@@ -23,7 +52,17 @@ export default function App() {
     }, [username]);
 
     const handleCommunityNight = async (event) => {
-        setCommunityNight(event.target.value);
+        let { data, error } = await supabase
+            .from("event")
+            .update({ name: eventNameChange })
+            .eq("id", 1)
+
+        if (error) console.log("error", error);
+        else {
+            console.log(`Event name updated successfully!`);
+            setEventName(eventNameChange);
+            console.log(eventNameChange)
+        }
 
     }
 
@@ -47,23 +86,29 @@ export default function App() {
             <UserTable session={session} status={status} />
             {isModerator && (
                 <Link href={"/watch"}>
-                    <Button >Start Community Night</Button>
+                    <Button color={'secondary'} >Start Community Night</Button>
                 </Link>
             )}
-            {/* {isModerator && (
+            {isModerator && (
 
                 <Input
-                    onChange={handleCommunityNight}
                     clearable
                     contentRightStyling={false}
-                    placeholder={communityNight}
+                    placeholder={'Change Event Name'}
+                    onChange={handleInputChange}
+
                     contentRight={
-                        <SendButton  >
-                            <SendIcon />
-                        </SendButton>
+                        <Tooltip trigger="hover" content={"Change the event name"} color={'secondary'} placement={'bottom'}>
+
+                            <SendButton onClick={handleCommunityNight} >
+                                <SendIcon />
+                            </SendButton>
+                        </Tooltip>
                     }
                 />
-            )} */}
+
+            )
+            }
         </Container >
     );
 }

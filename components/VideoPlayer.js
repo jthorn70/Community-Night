@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Button, Text } from "@nextui-org/react";
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
@@ -18,6 +17,25 @@ export default function VideoPlayer({ session, status }) {
     const [submitterName, setSubmitterName] = useState([]);
     const [description, setDescription] = useState([]);
     const [category, setCategory] = useState([]);
+    const [eventName, setEventName] = useState('');
+
+
+    const getEventName = async () => {
+        const { data, error } = await supabase
+            .from('event')
+            .select('*')
+            .eq('id', 1)
+        if (error) console.log('error', error);
+        else {
+            // get value of event name from data
+            setEventName(data[0].name);
+            console.log(data[0].name)
+        }
+    }
+
+    useEffect(() => {
+        getEventName();
+    }, []);
 
 
     useEffect(() => {
@@ -25,7 +43,7 @@ export default function VideoPlayer({ session, status }) {
             let { data, error } = await supabase
                 .from('Submissions')
                 .select('*')
-                .eq('eventName', 'Community Night 1')
+                .eq('eventName', eventName)
                 .order('category')
                 .limit(45)
             if (error) console.log('error', error);
@@ -38,7 +56,7 @@ export default function VideoPlayer({ session, status }) {
             }
         };
         fetchEvents();
-    }, []);
+    }, [eventName]);
 
     // useEffect(() => { console.log(submitterName) }, [submitterName])
 

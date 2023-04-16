@@ -1,5 +1,5 @@
 import { Card, Button, Text, Dropdown, Textarea, Input, Grid, Modal, Tooltip } from '@nextui-org/react';
-import React from "react";
+import { useEffect, useMemo } from "react";
 import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
 import styles from '../components/Form.module.css';
@@ -20,15 +20,33 @@ export default function Form({ session, status }) {
     const [category, setCategory] = useState('');
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
     const [formValid, setFormValid] = useState(false);
     const handler = () => setVisible(true);
+    const [eventName, setEventName] = useState('');
+
 
 
     const closeHandler = () => {
         setVisible(false);
         console.log("closed");
     };
+
+    const getEventName = async () => {
+        const { data, error } = await supabase
+            .from('event')
+            .select('*')
+            .eq('id', 1)
+        if (error) console.log('error', error);
+        else {
+            // get value of event name from data
+            setEventName(data[0].name);
+        }
+    }
+
+    useEffect(() => {
+        getEventName();
+    }, []);
 
 
     const handleSubmit = async (event) => {
@@ -45,7 +63,7 @@ export default function Form({ session, status }) {
 
         const { data, error } = await supabase
             .from('Submissions')
-            .insert([{ name: username, link: videoLink, description, category, eventName: "Community Night 2" }]);
+            .insert([{ name: username, link: videoLink, description, category, eventName: eventName }]);
 
         if (error) {
             console.log("Error: ", error);
@@ -71,8 +89,8 @@ export default function Form({ session, status }) {
     };
 
 
-    const [selected, setSelected] = React.useState(new Set(["Skating"]));
-    const selectedValue = React.useMemo(
+    const [selected, setSelected] = useState(new Set(["Skating"]));
+    const selectedValue = useMemo(
         () => Array.from(selected).join(", ").replaceAll("_", " "),
         [selected]
     );

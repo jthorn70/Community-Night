@@ -10,7 +10,7 @@ export default function Home() {
     return (
 
         <Grid.Container justify="center" gap={2}>
-            <CountdownClock targetDate={'2023-04-15T00:00:00Z'}></CountdownClock>
+            <CountdownClock targetDate={'2023-04-29T00:00:00Z'}></CountdownClock>
             <ReactPlayer
                 url="https://www.twitch.tv/jbooogie"
                 controls

@@ -24,6 +24,7 @@ const myDarkTheme = createTheme({
 
 export const GlobalContext = createContext();
 
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   const [communityNight, setCommunityNight] = useState();

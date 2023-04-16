@@ -6,11 +6,16 @@ import { DeleteIcon } from "./DeleteIcon";
 import { IconButton } from "./IconButton";
 
 export default function SubmissionTable({ session, status, randomized }) {
-    const [eventName, setEventName] = useState('Community Night 1');
-    const [selected, setSelected] = React.useState('Community Night 1');
+    const [eventName, setEventName] = useState('');
+    const [currentEventName, setCurrentEventName] = useState('');
+    const [selected, setSelected] = useState(currentEventName);
     const [events, setEvents] = useState([]);
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [user, setUser] = useState([]);
+    const [dataChanged, setDataChanged] = useState(false);
+
+
+
 
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -20,6 +25,30 @@ export default function SubmissionTable({ session, status, randomized }) {
     const moderators = ['jboondock', 'jboogie', 'NTLX', 'olay', 'contra']
     const [isModerator, setIsModerator] = useState(false);
     const profileName = session?.user?.name;
+
+
+
+    const getCurrentEventName = async () => {
+        const { data, error } = await supabase
+            .from('event')
+            .select('*')
+            .eq('id', 1)
+        if (error) console.log('error', error);
+        else {
+            // get value of event name from data
+            setCurrentEventName(data[0].name);
+        }
+    }
+
+    useEffect(() => {
+        getCurrentEventName();
+    }, []);
+
+    useEffect(() => {
+        setSelected(currentEventName);
+        setEventName(currentEventName);
+    }, [currentEventName]);
+
 
     const handleDelete = async (id) => {
         let { data, error } = await supabase
@@ -32,6 +61,7 @@ export default function SubmissionTable({ session, status, randomized }) {
             console.log(`Submission with id ${id} deleted successfully!`);
             // Update the `user` state to remove the deleted row
             setUser((prevUser) => prevUser.filter((item) => item.id !== id));
+            setDataChanged(!dataChanged);
         }
     };
 
@@ -59,7 +89,7 @@ export default function SubmissionTable({ session, status, randomized }) {
             }
         };
         fetchEvents();
-    }, []);
+    }, [dataChanged]);
 
     useEffect(() => {
         setFilteredEvents(
