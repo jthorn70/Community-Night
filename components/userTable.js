@@ -331,7 +331,7 @@ export default function UserTable({ session, status }) {
                                         </Modal>
                                         {eventName === item.eventName ? (
                                             <Tooltip content="Delete">
-                                                <IconButton onClick={handler}>
+                                                <IconButton onClick={() => handleDelete(item.id)}>
                                                     <DeleteIcon size={20} fill="#FF0080" />
                                                 </IconButton>
                                             </Tooltip>
