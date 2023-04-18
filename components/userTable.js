@@ -33,7 +33,7 @@ export default function UserTable({ session, status }) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey);
-    const [selected, setSelected] = (new Set(["Skating"]));
+    const [selected, setSelected] = useState(new Set(["Skating"]));
     const selectedValue = useMemo(
         () => Array.from(selected).join(", ").replaceAll("_", " "),
         [selected]
@@ -60,7 +60,7 @@ export default function UserTable({ session, status }) {
             }
         };
         fetchEvents();
-    }, [supabase, profileName, user]);
+    }, [supabase, profileName]);
 
     useEffect(() => {
         setFilteredEvents(
@@ -105,6 +105,7 @@ export default function UserTable({ session, status }) {
             setFormValid(true);
             // Update the `user` state to remove the deleted row
             setUser((prevUser) => prevUser.filter((item) => item.id !== id));
+            setVisible(false);
         }
     };
 
@@ -168,6 +169,9 @@ export default function UserTable({ session, status }) {
                                                 onClose={closeHandler}
                                             >
                                                 <Modal.Header>
+                                                    {/* <Text id="modal-title" size={18}>
+                                                        Edit Item
+                                                    </Text> */}
                                                     <Text h2>Edit Submission</Text>
                                                 </Modal.Header>
                                                 <Modal.Body>
