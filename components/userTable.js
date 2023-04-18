@@ -10,13 +10,7 @@ export default function UserTable({ session, status }) {
 
 
 
-    const [visible, setVisible] = useState(false);
-    const handler = () => setVisible(true);
 
-    const closeHandler = () => {
-        setVisible(false);
-        console.log("closed");
-    };
 
     function isValidUrl(value) {
         // Regex to match a valid URL
@@ -25,7 +19,8 @@ export default function UserTable({ session, status }) {
         return urlRegex.test(value);
     }
 
-
+    const moderators = ['jboondock', 'jboogie', 'NTLX', 'olay', 'contra']
+    const [isModerator, setIsModerator] = useState(false);
     const [user, setUser] = useState([]);
     const [userName, setUserName] = useState('test');
     const [filteredEvents, setFilteredEvents] = useState([]);
@@ -43,11 +38,18 @@ export default function UserTable({ session, status }) {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const profileName = session?.user?.name;
+    const [visible, setVisible] = useState(false);
+    const handler = () => setVisible(true);
+
+    const closeHandler = () => {
+        setVisible(false);
+        console.log("closed");
+    };
 
     const supabaseRef = useRef(supabase);
 
-
     useEffect(() => {
+        let isMounted = true;
         const fetchEvents = async () => {
             let { data, error } = await supabaseRef.current
                 .from('Submissions')
@@ -55,12 +57,20 @@ export default function UserTable({ session, status }) {
                 .eq('name', profileName);
             if (error) console.log('error', error);
             else {
-                setUser(data);
-                // console.log(data)
+                if (isMounted) setUser(data);
             }
         };
         fetchEvents();
-    }, [supabase, profileName]);
+        return () => {
+            isMounted = false;
+        };
+    }, [supabase]);
+
+
+    useEffect(() => {
+        const isModerator = moderators.includes(profileName);
+        setIsModerator(isModerator);
+    }, [profileName]);
 
     useEffect(() => {
         setFilteredEvents(
