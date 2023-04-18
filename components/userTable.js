@@ -40,6 +40,25 @@ export default function UserTable({ session, status }) {
     const profileName = session?.user?.name;
     const [visible, setVisible] = useState(false);
     const handler = () => setVisible(true);
+    const [eventName, setEventName] = useState('');
+
+
+
+    const getCurrentEventName = async () => {
+        const { data, error } = await supabase
+            .from('event')
+            .select('*')
+            .eq('id', 1)
+        if (error) console.log('error', error);
+        else {
+            // get value of event name from data
+            setEventName(data[0].name);
+        }
+    }
+
+    useEffect(() => {
+        getCurrentEventName();
+    }, []);
 
     const closeHandler = () => {
         setVisible(false);
@@ -139,6 +158,10 @@ export default function UserTable({ session, status }) {
             label: 'Category',
         },
         {
+            key: 'eventName',
+            label: 'Event',
+        },
+        {
             key: 'actions',
             label: 'Actions',
         }
@@ -168,145 +191,163 @@ export default function UserTable({ session, status }) {
 
                                 ) : columnKey === 'actions' ? (
                                     <Table.Cell>
-                                        <Tooltip content="Edit">
-                                            <IconButton onClick={handler}>
-                                                <EditIcon size={20} fill="#979797" />
-                                            </IconButton>
-                                            <Modal
-                                                closeButton
-                                                aria-labelledby="modal-title"
-                                                open={visible}
-                                                onClose={closeHandler}
-                                            >
-                                                <Modal.Header>
-                                                    {/* <Text id="modal-title" size={18}>
+                                        {eventName === item.eventName ? (
+                                            <Tooltip content="Edit">
+                                                <IconButton onClick={handler}>
+                                                    <EditIcon size={20} fill="#979797" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        ) : (
+                                            <Tooltip content="Not Editable">
+                                                <IconButton >
+                                                    <EditIcon size={20} fill="#979797" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        )}
+                                        <Modal
+                                            closeButton
+                                            aria-labelledby="modal-title"
+                                            open={visible}
+                                            onClose={closeHandler}
+                                        >
+                                            <Modal.Header>
+                                                {/* <Text id="modal-title" size={18}>
                                                         Edit Item
                                                     </Text> */}
-                                                    <Text h2>Edit Submission</Text>
-                                                </Modal.Header>
-                                                <Modal.Body>
+                                                <Text h2>Edit Submission</Text>
+                                            </Modal.Header>
+                                            <Modal.Body>
 
-                                                    <form onSubmit={handleUpdate}>
-                                                        <Grid.Container gap={1} justify="center">
+                                                <form onSubmit={handleUpdate}>
+                                                    <Grid.Container gap={1} justify="center">
 
-                                                        </Grid.Container>
+                                                    </Grid.Container>
 
-                                                        <Grid.Container gap={1} justify="center">
-                                                            <Grid>
-                                                                <Tooltip content={"Not Editable"} color='secondary' placement='bottom'>
-                                                                    <Input
-                                                                        bordered
-                                                                        readOnly
-                                                                        label="Username"
-                                                                        type="text"
-                                                                        name="username"
-                                                                        initialValue={profileName}
-                                                                        required
-                                                                        status={formValid ? "success" : "secondary"}
-                                                                    />
-                                                                </Tooltip>
-                                                            </Grid>
-                                                        </Grid.Container>
-
-                                                        <Grid.Container gap={2} justify="center">
-                                                            <Grid>
+                                                    <Grid.Container gap={1} justify="center">
+                                                        <Grid>
+                                                            <Tooltip content={"Not Editable"} color='secondary' placement='bottom'>
                                                                 <Input
-                                                                    clearable
                                                                     bordered
-                                                                    label="Video Link"
-                                                                    type="url"
-                                                                    name="videoLink"
-                                                                    placeholder='https://www.youtube.com/watch?v='
+                                                                    readOnly
+                                                                    label="Username"
+                                                                    type="text"
+                                                                    name="username"
+                                                                    initialValue={profileName}
                                                                     required
-                                                                    description={validURL ? "Valid URL" : "Invalid URL"}
                                                                     status={formValid ? "success" : "secondary"}
-                                                                    onChange={(event) => {
-                                                                        const url = event.target.value;
-                                                                        try {
-                                                                            new URL(url);
-                                                                            setLink(url);
-                                                                            setValidURL(true);
-                                                                        } catch (error) {
-                                                                            console.error('Invalid URL');
-                                                                            setValidURL(false);
-                                                                            // Handle invalid URL here, for example by showing an error message
-                                                                        }
-                                                                    }}
-
                                                                 />
-                                                            </Grid>
-                                                        </Grid.Container>
-
-                                                        <Grid.Container gap={2} justify="center">
-                                                            <Grid>
-                                                                <Textarea
-                                                                    status={formValid ? "success" : "secondary"}
-                                                                    clearable bordered size='xl'
-                                                                    labelPlaceholder="Description"
-                                                                    name="description"
-                                                                    required
-                                                                    onChange={(event) => setDescription(event.target.value)} />
-                                                            </Grid>
-                                                        </Grid.Container>
-
-                                                        <Grid.Container gap={2} justify="center">
-                                                            <Grid >
-                                                                <Dropdown name="category" required>
-
-                                                                    <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
-                                                                        {selectedValue}
-                                                                    </Dropdown.Button>
-                                                                    <Dropdown.Menu
-                                                                        aria-label="Single selection actions"
-                                                                        color="secondary"
-                                                                        disallowEmptySelection
-                                                                        selectionMode="single"
-                                                                        selectedKeys={selected}
-                                                                        onSelectionChange={setSelected}
-                                                                        onSelectCapture={setCategory(selectedValue)}
-                                                                    >
-                                                                        <Dropdown.Item key="Skating">Skating</Dropdown.Item>
-                                                                        <Dropdown.Item key="meme">Meme</Dropdown.Item>
-                                                                        <Dropdown.Item key="other">Other</Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </Grid>
-                                                        </Grid.Container>
-
-                                                        <Grid.Container gap={2} justify="center">
-
-
-                                                        </Grid.Container>
-
-                                                    </form>
-
-
-                                                </Modal.Body>
-                                                <Modal.Footer>
-                                                    <Grid.Container gap={2} justify="center">
-                                                        <Grid>
-                                                            <Button auto flat color="error" onPress={closeHandler}>
-                                                                Cancel
-                                                            </Button>
-                                                        </Grid>
-                                                        <Grid>
-                                                            <Button auto onClick={() => handleUpdate(item.id)} onPress={() => handleUpdate(item.id)}>
-                                                                Update
-                                                            </Button>
+                                                            </Tooltip>
                                                         </Grid>
                                                     </Grid.Container>
-                                                </Modal.Footer>
-                                            </Modal>
-                                        </Tooltip>
-                                        <Tooltip content="Delete">
-                                            <IconButton onClick={() => handleDelete(item.id)}>
-                                                <DeleteIcon size={20} fill="#FF0080" />
-                                            </IconButton>
-                                        </Tooltip>
+
+                                                    <Grid.Container gap={2} justify="center">
+                                                        <Grid>
+                                                            <Input
+                                                                clearable
+                                                                bordered
+                                                                label="Video Link"
+                                                                type="url"
+                                                                name="videoLink"
+                                                                placeholder='https://www.youtube.com/watch?v='
+                                                                required
+                                                                description={validURL ? "Valid URL" : "Invalid URL"}
+                                                                status={formValid ? "success" : "secondary"}
+                                                                onChange={(event) => {
+                                                                    const url = event.target.value;
+                                                                    try {
+                                                                        new URL(url);
+                                                                        setLink(url);
+                                                                        setValidURL(true);
+                                                                    } catch (error) {
+                                                                        console.error('Invalid URL');
+                                                                        setValidURL(false);
+                                                                        // Handle invalid URL here, for example by showing an error message
+                                                                    }
+                                                                }}
+
+                                                            />
+                                                        </Grid>
+                                                    </Grid.Container>
+
+                                                    <Grid.Container gap={2} justify="center">
+                                                        <Grid>
+                                                            <Textarea
+                                                                status={formValid ? "success" : "secondary"}
+                                                                clearable bordered size='xl'
+                                                                labelPlaceholder="Description"
+                                                                name="description"
+                                                                required
+                                                                onChange={(event) => setDescription(event.target.value)} />
+                                                        </Grid>
+                                                    </Grid.Container>
+
+                                                    <Grid.Container gap={2} justify="center">
+                                                        <Grid >
+                                                            <Dropdown name="category" required>
+
+                                                                <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                                                                    {selectedValue}
+                                                                </Dropdown.Button>
+                                                                <Dropdown.Menu
+                                                                    aria-label="Single selection actions"
+                                                                    color="secondary"
+                                                                    disallowEmptySelection
+                                                                    selectionMode="single"
+                                                                    selectedKeys={selected}
+                                                                    onSelectionChange={setSelected}
+                                                                    onSelectCapture={setCategory(selectedValue)}
+                                                                >
+                                                                    <Dropdown.Item key="Skating">Skating</Dropdown.Item>
+                                                                    <Dropdown.Item key="meme">Meme</Dropdown.Item>
+                                                                    <Dropdown.Item key="other">Other</Dropdown.Item>
+                                                                </Dropdown.Menu>
+                                                            </Dropdown>
+                                                        </Grid>
+                                                    </Grid.Container>
+
+                                                    <Grid.Container gap={2} justify="center">
+
+
+                                                    </Grid.Container>
+
+                                                </form>
+
+
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Grid.Container gap={2} justify="center">
+                                                    <Grid>
+                                                        <Button auto flat color="error" onPress={closeHandler}>
+                                                            Cancel
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid>
+                                                        <Button auto onClick={() => handleUpdate(item.id)} onPress={() => handleUpdate(item.id)}>
+                                                            Update
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid.Container>
+                                            </Modal.Footer>
+                                        </Modal>
+                                        {eventName === item.eventName ? (
+                                            <Tooltip content="Delete">
+                                                <IconButton onClick={handler}>
+                                                    <DeleteIcon size={20} fill="#FF0080" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        ) : (
+                                            <Tooltip content="Not Deleteable">
+                                                <IconButton >
+                                                    <DeleteIcon size={20} fill="#FF0080" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        )}
                                     </Table.Cell>
                                 ) : (
                                     <Table.Cell>{item[columnKey]}</Table.Cell>
                                 )
+
+
                             }
 
 
