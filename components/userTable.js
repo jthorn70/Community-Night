@@ -1,7 +1,6 @@
 import { Table, Link, Tooltip, Modal, Button, Text, Input, Dropdown, Grid, Textarea } from "@nextui-org/react";
 import { createClient } from '@supabase/supabase-js';
-import { useEffect, useState } from 'react';
-import React from "react";
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { DeleteIcon } from "./DeleteIcon";
 import { EditIcon } from "./EditIcon";
 import { IconButton } from "./IconButton";
@@ -34,8 +33,8 @@ export default function UserTable({ session, status }) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey);
-    const [selected, setSelected] = React.useState(new Set(["Skating"]));
-    const selectedValue = React.useMemo(
+    const [selected, setSelected] = (new Set(["Skating"]));
+    const selectedValue = useMemo(
         () => Array.from(selected).join(", ").replaceAll("_", " "),
         [selected]
     );
@@ -45,10 +44,12 @@ export default function UserTable({ session, status }) {
     const [category, setCategory] = useState('');
     const profileName = session?.user?.name;
 
+    const supabaseRef = useRef(supabase);
+
 
     useEffect(() => {
         const fetchEvents = async () => {
-            let { data, error } = await supabase
+            let { data, error } = await supabaseRef.current
                 .from('Submissions')
                 .select('*')
                 .eq('name', profileName);
@@ -59,7 +60,7 @@ export default function UserTable({ session, status }) {
             }
         };
         fetchEvents();
-    }, [profileName]);
+    }, [supabase, profileName, user]);
 
     useEffect(() => {
         setFilteredEvents(
