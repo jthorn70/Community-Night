@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { SendButton } from "./SendButton.js";
 import { SendIcon } from "./SendIcon";
 import { createClient } from '@supabase/supabase-js';
+import { motion } from 'framer-motion'
 
 
 export default function App() {
@@ -67,48 +68,64 @@ export default function App() {
     }
 
     return (
-        <Container css={{ width: 'fit-content' }}>
-            <Card >
-                <User
+        <motion.div
+            initial={{
+                opacity: 0,
+                x: 100,
+            }}
+            animate={{
+                opacity: 1,
+                x: 0,
+            }}
+            exit={{
+                opacity: 0,
+                x: -100,
+            }}
+            transition={{ type: "spring", duration: 0.6, ease: "easeIn", delay: 0.4 }}
+        >
+            <Container css={{ width: 'fit-content' }}>
+                <Card >
+                    <User
 
 
-                    src={avatar}
-                    name={username}
-                    zoomed
-                />
-            </Card>
-            <Grid justify="center" xs={12}>
-                <Text css={{
-                    textGradient: "69deg, $blue600 -20%, $pink600 50%",
-                }}
-                    h2>Your Submissions</Text>
-            </Grid>
-            <UserTable session={session} status={status} />
-            {isModerator && (
-                <Link href={"/watch"}>
-                    <Button color={'secondary'} >Start Community Night</Button>
-                </Link>
-            )}
-            {isModerator && (
+                        src={avatar}
+                        name={username}
+                        zoomed
+                    />
+                </Card>
+                <Grid justify="center" xs={12}>
+                    <Text css={{
+                        textGradient: "69deg, $blue600 -20%, $pink600 50%",
+                    }}
+                        h2>Your Submissions</Text>
+                </Grid>
+                <UserTable session={session} status={status} />
+                {isModerator && (
+                    <Link href={"/watch"}>
+                        <Button color={'secondary'} >Start Community Night</Button>
+                    </Link>
+                )}
+                {isModerator && (
 
-                <Input
-                    clearable
-                    contentRightStyling={false}
-                    placeholder={'Change Event Name'}
-                    onChange={handleInputChange}
+                    <Input
+                        clearable
+                        contentRightStyling={false}
+                        placeholder={'Change Event Name'}
+                        onChange={handleInputChange}
 
-                    contentRight={
-                        <Tooltip trigger="hover" content={"Change the event name"} color={'secondary'} placement={'bottom'}>
+                        contentRight={
+                            <Tooltip trigger="hover" content={"Change the event name"} color={'secondary'} placement={'bottom'}>
 
-                            <SendButton onClick={handleCommunityNight} >
-                                <SendIcon />
-                            </SendButton>
-                        </Tooltip>
-                    }
-                />
+                                <SendButton onClick={handleCommunityNight} >
+                                    <SendIcon />
+                                </SendButton>
+                            </Tooltip>
+                        }
+                    />
 
-            )
-            }
-        </Container >
+                )
+                }
+            </Container >
+        </motion.div>
     );
 }

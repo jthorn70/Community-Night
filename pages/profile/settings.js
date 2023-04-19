@@ -3,6 +3,7 @@ import { Layout } from "../../components/Layout.js";
 import UserSettings from "../../components/UserSettings.js";
 import { useSession } from 'next-auth/react'
 import DiscordLogin from "../../components/DiscordLogin.js";
+import { motion } from 'framer-motion'
 
 export default function App() {
     const { data: session, status } = useSession();
@@ -11,10 +12,13 @@ export default function App() {
         <Layout>
             <Navbar isCompact isBordered variant="sticky">
                 <Navbar.Brand>
-                    <Text
-                        b color="inherit" hideIn="xs">
-                        Community Night
-                    </Text>
+                    <motion.div whileHover={{ scale: 1.3, color: "purple" }} whileTap={{ scale: 0.9 }} >
+
+                        <Text
+                            b color="inherit" hideIn="xs">
+                            Community Night
+                        </Text>
+                    </motion.div>
                 </Navbar.Brand>
                 <Navbar.Content hideIn="xs" variant="underline">
                     <Navbar.Link href="/">Home</Navbar.Link>
@@ -27,6 +31,6 @@ export default function App() {
                 </Navbar.Content>
             </Navbar>
             <UserSettings></UserSettings>
-        </Layout>
+        </Layout >
     );
 }

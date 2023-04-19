@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo } from 'react';
 import { DeleteIcon } from "./DeleteIcon";
 import { EditIcon } from "./EditIcon";
 import { IconButton } from "./IconButton";
+import { motion } from 'framer-motion'
 
 export default function UserTable({ session, status }) {
 
@@ -193,15 +194,19 @@ export default function UserTable({ session, status }) {
                                     <Table.Cell>
                                         {eventName === item.eventName ? (
                                             <Tooltip content="Edit">
-                                                <IconButton onClick={handler}>
-                                                    <EditIcon size={20} fill="#979797" />
-                                                </IconButton>
+                                                <motion.div whileHover={{ scale: 1.3, rotate: 30 }} whileTap={{ scale: 0.9 }}>
+                                                    <IconButton onClick={handler}>
+                                                        <EditIcon size={20} fill="#979797" />
+                                                    </IconButton>
+                                                </motion.div>
                                             </Tooltip>
                                         ) : (
                                             <Tooltip content="Not Editable">
-                                                <IconButton >
-                                                    <EditIcon size={20} fill="#979797" />
-                                                </IconButton>
+                                                <motion.div whileHover={{ scale: 1.3, rotate: 22, color: 'red' }} whileTap={{ scale: 0.9 }}>
+                                                    <IconButton >
+                                                        <EditIcon size={20} fill="#979797" />
+                                                    </IconButton>
+                                                </motion.div>
                                             </Tooltip>
                                         )}
                                         <Modal
@@ -331,15 +336,19 @@ export default function UserTable({ session, status }) {
                                         </Modal>
                                         {eventName === item.eventName ? (
                                             <Tooltip content="Delete">
-                                                <IconButton onClick={() => handleDelete(item.id)}>
-                                                    <DeleteIcon size={20} fill="#FF0080" />
-                                                </IconButton>
+                                                <motion.div whileHover={{ scale: 1.3, rotate: -30 }} whileTap={{ scale: 0.9 }} >
+                                                    <IconButton onClick={() => handleDelete(item.id)}>
+                                                        <DeleteIcon size={20} fill="#FF0080" />
+                                                    </IconButton>
+                                                </motion.div>
                                             </Tooltip>
                                         ) : (
                                             <Tooltip content="Not Deleteable">
-                                                <IconButton >
-                                                    <DeleteIcon size={20} fill="#FF0080" />
-                                                </IconButton>
+                                                <motion.div whileHover={{ scale: 1.3, rotate: -30 }} whileTap={{ scale: 0.9 }}>
+                                                    <IconButton >
+                                                        <DeleteIcon size={20} fill="#FF0080" />
+                                                    </IconButton>
+                                                </motion.div>
                                             </Tooltip>
                                         )}
                                     </Table.Cell>

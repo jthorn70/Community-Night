@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import { DeleteIcon } from "./DeleteIcon";
 import { IconButton } from "./IconButton";
+import { motion } from 'framer-motion'
+
 
 export default function SubmissionTable({ session, status, randomized }) {
     const [eventName, setEventName] = useState('');
@@ -140,34 +142,49 @@ export default function SubmissionTable({ session, status, randomized }) {
         setEventName(value);
     };
     return (
-        <><Grid.Container gap={1} justify='center'>
-            <Grid justify='center'>
-                <Dropdown>
-                    <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
-                        {selected}
-                    </Dropdown.Button>
-                    <Dropdown.Menu
-                        aria-label="Single selection actions"
-                        color="secondary"
-                        disallowEmptySelection
-                        selectionMode="single"
-                        selectedKeys={selected}
-                        onSelectionChange={setSelected}
-                        onAction={handleSelectionChange}
-                    >
-                        <Dropdown.Item key="Community Night 1">
-                            Community Night 1
-                        </Dropdown.Item>
-                        <Dropdown.Item key="Community Night 2">
-                            Community Night 2
-                        </Dropdown.Item>
-                        <Dropdown.Item key="Community Night 3">
-                            Community Night 3
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Grid>
-        </Grid.Container>
+        <motion.div
+            initial={{
+                opacity: 0,
+                x: 100,
+            }}
+            animate={{
+                opacity: 1,
+                x: 0,
+            }}
+            exit={{
+                opacity: 0,
+                x: -100,
+            }}
+            transition={{ type: "spring", duration: 0.6, ease: "easeIn", delay: 0.4 }}
+        >
+            <Grid.Container gap={1} justify='center'>
+                <Grid justify='center'>
+                    <Dropdown>
+                        <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                            {selected}
+                        </Dropdown.Button>
+                        <Dropdown.Menu
+                            aria-label="Single selection actions"
+                            color="secondary"
+                            disallowEmptySelection
+                            selectionMode="single"
+                            selectedKeys={selected}
+                            onSelectionChange={setSelected}
+                            onAction={handleSelectionChange}
+                        >
+                            <Dropdown.Item key="Community Night 1">
+                                Community Night 1
+                            </Dropdown.Item>
+                            <Dropdown.Item key="Community Night 2">
+                                Community Night 2
+                            </Dropdown.Item>
+                            <Dropdown.Item key="Community Night 3">
+                                Community Night 3
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Grid>
+            </Grid.Container>
             <Grid.Container gap={1} justify='center'>
                 <Grid justify='center'>
                     <Table
@@ -194,9 +211,11 @@ export default function SubmissionTable({ session, status, randomized }) {
                                             isModerator ? (
                                                 <Table.Cell>
                                                     <Tooltip content="Delete">
-                                                        <IconButton onClick={() => handleDelete(item.id)}>
-                                                            <DeleteIcon size={20} fill="#FF0080" />
-                                                        </IconButton>
+                                                        <motion.div whileHover={{ scale: 1.3, rotate: -30 }} whileTap={{ scale: 0.9 }} >
+                                                            <IconButton onClick={() => handleDelete(item.id)}>
+                                                                <DeleteIcon size={20} fill="#FF0080" />
+                                                            </IconButton>
+                                                        </motion.div>
                                                     </Tooltip>
                                                 </Table.Cell>
                                             ) : null
@@ -212,6 +231,6 @@ export default function SubmissionTable({ session, status, randomized }) {
                 </Grid>
             </Grid.Container>
 
-        </>
+        </motion.div>
     );
 }

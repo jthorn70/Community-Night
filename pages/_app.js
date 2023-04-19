@@ -4,6 +4,9 @@ import { SessionProvider } from 'next-auth/react';
 import { Analytics } from '@vercel/analytics/react';
 import Head from "next/head";
 import { createContext, useEffect, useState } from 'react';
+import { AnimatePresence } from 'framer-motion'
+import { Router, useRouter } from 'next/router';
+
 
 
 const myDarkTheme = createTheme({
@@ -25,38 +28,21 @@ const myDarkTheme = createTheme({
 export const GlobalContext = createContext();
 
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-
-  const [communityNight, setCommunityNight] = useState();
-
-  useEffect(() => {
-    localStorage.setItem('communityNight', communityNight);
-  }, [communityNight]);
-
-  useEffect(() => {
-    const storedCommunityNight = localStorage.getItem('communityNight');
-    if (storedCommunityNight) {
-      setCommunityNight(storedCommunityNight);
-    }
-  }, []);
-
-
-
-  // useEffect(() => { console.log(communityNight) }, [communityNight]);
+function MyApp({ Component, pageProps: { session, ...pageProps }, router }) {
 
   return (
     // 2. Use at the root of your app
-    <GlobalContext.Provider value={{ communityNight, setCommunityNight }}>
-      <SessionProvider session={session}>
-        <NextUIProvider theme={myDarkTheme}>
-          <Component {...pageProps} />
-          <Head>
-            <link rel="shortcut icon" href="/favicon.ico" />
-          </Head>
-          <Analytics />
-        </NextUIProvider>
-      </SessionProvider>
-    </GlobalContext.Provider>
+    <SessionProvider session={session}>
+      <NextUIProvider theme={myDarkTheme}>
+        <AnimatePresence initial={true} mode="popLayout">
+          <Component key={router.route} {...pageProps} />
+        </AnimatePresence>
+        <Head>
+          <link rel="shortcut icon" href="/favicon.ico" />
+        </Head>
+        <Analytics />
+      </NextUIProvider>
+    </SessionProvider>
   );
 }
 

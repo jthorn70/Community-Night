@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { createClient } from '@supabase/supabase-js';
 import SubmissionCard from './SubmissionCard';
+import { motion } from 'framer-motion'
 
 
 export default function VideoPlayer({ session, status }) {
@@ -75,7 +76,18 @@ export default function VideoPlayer({ session, status }) {
 
 
     return (
-        <>
+        <motion.div
+            initial={{
+                opacity: 0,
+            }}
+            animate={{
+                opacity: 1,
+            }}
+            exit={{
+                opacity: 0,
+            }}
+            transition={{ type: "spring", duration: 10, ease: "easeIn", delay: 2 }}
+        >
             <Grid.Container justify='center' gap={0}>
                 <Grid justify='center' xs={12}>
                     <Text>{currentVideoIndex + 1}/{videos.length}</Text>
@@ -113,6 +125,6 @@ export default function VideoPlayer({ session, status }) {
 
                 </Button.Group>
             </Grid.Container > */}
-        </>
+        </motion.div>
     );
 }
