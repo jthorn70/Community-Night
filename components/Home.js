@@ -26,8 +26,8 @@ export default function Home() {
             }}
             transition={{ duration: 0.6, ease: "easeIn", delay: 0.4 }}
         >
-            <Grid.Container justify="center">
-                <Card css={{ w: 640 * 2, h: 360 * 2 }}>
+            <Grid.Container justify="center" >
+                <Card css={{ width: "fit-content", position: "absolute", left: "50%", transform: "translateX(-50%)", "@media screen and (max-width: 767px)": { position: "static", transform: "none" } }}>
                     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                         <Col>
 
@@ -38,8 +38,8 @@ export default function Home() {
                         <ReactPlayer
                             url="https://www.twitch.tv/jbooogie"
                             controls
-                            width={640 * 2}
-                            height={360 * 2}>
+                            width={1280}
+                            height={720}>
 
                         </ReactPlayer>
                     </Card.Body>
@@ -57,24 +57,20 @@ export default function Home() {
                             <Col>
                                 <Row>
                                     <Col span={3}>
-                                        <motion.div
-                                            whileHover={{ scale: 1.6, rotate: 17, transition: { duration: 0.7 } }}
-                                            onHoverStart={e => { }}
-                                            onHoverEnd={e => { }}>
-                                            <Card.Image
-                                                src="https://cdn.discordapp.com/attachments/741822865342595132/1096269728533712996/CN-LOGO-draw-2.png"
-                                                height={80}
-                                                width={80}
-                                                alt="Breathing app icon"
-                                            />
-                                        </motion.div>
+
+                                        <Card.Image
+                                            src="https://cdn.discordapp.com/attachments/741822865342595132/1096269728533712996/CN-LOGO-draw-2.png"
+                                            height={120}
+                                            width={120}
+                                            alt="Breathing app icon"
+                                        />
 
                                     </Col>
                                     <Col>
-                                        <Text color="#d1d1d1" size={12}>
+                                        <Text color="#d1d1d1" size={24}>
                                             Next Community Night
                                         </Text>
-                                        <Text color="#d1d1d1" size={12}>
+                                        <Text color="#d1d1d1" size={24}>
                                             Starts in...
                                         </Text>
                                     </Col>
@@ -82,38 +78,16 @@ export default function Home() {
                             </Col>
                             <Col>
                                 <Row justify="flex-end">
-                                    <CountdownClock targetDate={'2023-04-29T00:00:00Z'}></CountdownClock>
+                                    <CountdownClock
+                                        targetDate={'2023-04-29T00:00:00Z'}
+                                        fontSize={45}
+                                    />
                                 </Row>
                             </Col>
                         </Row>
                     </Card.Footer>
                 </Card>
-
-
-
-
-
-
-                {/* <Card width='fit-content'>
-                    <Grid.Container justify="center">
-                        <Grid justify="center">
-                            <CountdownClock targetDate={'2023-04-29T00:00:00Z'}></CountdownClock>
-                        </Grid>
-                        <Card.Body>
-                            <Grid justify="center">
-                                <ReactPlayer
-                                    url="https://www.twitch.tv/jbooogie"
-                                    controls
-                                    width={640 * 2}
-                                    height={360 * 2}>
-
-                                </ReactPlayer>
-                            </Grid>
-                        </Card.Body>
-                    </Grid.Container>
-                </Card> */}
             </Grid.Container>
-
         </motion.div>
     );
 }

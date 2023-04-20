@@ -15,7 +15,7 @@ export default function App() {
     ];
 
     return (
-        <Layout>
+        <>
             <Navbar isBordered variant="sticky">
                 <Navbar.Brand>
                     <Navbar.Toggle aria-label="toggle navigation" />
@@ -50,7 +50,9 @@ export default function App() {
 
                 </Navbar.Collapse>
             </Navbar>
-            <SubmissionTable session={session} status={status} randomized={true} />
-        </Layout>
+            <Layout>
+                <SubmissionTable session={session} status={status} randomized={true} />
+            </Layout>
+        </>
     );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from "@nextui-org/react";
 
 
-const CountdownClock = ({ targetDate }) => {
+const CountdownClock = ({ targetDate, fontSize }) => {
     const getTimeRemaining = () => {
         const total = Date.parse(targetDate) - Date.parse(new Date());
         const seconds = Math.floor((total / 1000) % 60).toString().padStart(2, '0');
@@ -37,7 +37,7 @@ const CountdownClock = ({ targetDate }) => {
     return (
         <Grid.Container justify='center' gap={2}>
             <Grid justify='center' xs={12}>
-                <div id='timer-text' style={{ fontSize: '50px' }}>
+                <div id='timer-text' style={{ fontSize: fontSize | '50px' }}>
                     {timeRemaining.days}:{timeRemaining.hours}:{timeRemaining.minutes}:{timeRemaining.seconds}
                 </div>
             </Grid>
