@@ -1,26 +1,30 @@
-import { Navbar, Text } from "@nextui-org/react";
+import { Link, Navbar, Text } from "@nextui-org/react";
 import { Layout } from "../../components/Layout.js";
 import UserSettings from "../../components/UserSettings.js";
 import { useSession } from 'next-auth/react'
 import DiscordLogin from "../../components/DiscordLogin.js";
-import { motion } from 'framer-motion'
+
 
 export default function App() {
     const { data: session, status } = useSession();
 
+    const collapseItems = [
+        { name: "Home", href: "/" },
+        { name: "Submit", href: "/submit" },
+        { name: "List", href: "/viewList" },
+        { name: "My Profile", href: "/profile/settings" },
+    ];
     return (
-        <Layout>
-            <Navbar isCompact isBordered variant="sticky">
+        <>
+            <Navbar isBordered variant="sticky">
                 <Navbar.Brand>
-                    <motion.div whileHover={{ scale: 1.3, color: "purple" }} whileTap={{ scale: 0.9 }} >
+                    <Navbar.Toggle aria-label="toggle navigation" />
 
-                        <Text
-                            b color="inherit" hideIn="xs">
-                            Community Night
-                        </Text>
-                    </motion.div>
+                    <Text b color="inherit" hideIn="xs">
+                        CN
+                    </Text>
                 </Navbar.Brand>
-                <Navbar.Content hideIn="xs" variant="underline">
+                <Navbar.Content enableCursorHighlight hideIn="xs" variant="underline">
                     <Navbar.Link href="/">Home</Navbar.Link>
                     <Navbar.Link href="/submit">Submit</Navbar.Link>
                     <Navbar.Link href="/viewList">List</Navbar.Link>
@@ -29,8 +33,26 @@ export default function App() {
                 <Navbar.Content>
                     <DiscordLogin session={session} status={status}></DiscordLogin>
                 </Navbar.Content>
+                <Navbar.Collapse>
+                    {collapseItems.map((item, index) => (
+                        <Navbar.CollapseItem key={index}>
+                            <Link
+                                color="inherit"
+                                css={{
+                                    minWidth: "100%",
+                                }}
+                                href={item.href}
+                            >
+                                {item.name}
+                            </Link>
+                        </Navbar.CollapseItem>
+                    ))}
+
+                </Navbar.Collapse>
             </Navbar>
-            <UserSettings></UserSettings>
-        </Layout >
+            <Layout >
+                <UserSettings></UserSettings>
+            </Layout >
+        </>
     );
 }

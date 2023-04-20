@@ -37,7 +37,7 @@ const CountdownClock = ({ targetDate }) => {
     return (
         <Grid.Container justify='center' gap={2}>
             <Grid justify='center' xs={12}>
-                <div id='timer-text' style={{ fontSize: '72px' }}>
+                <div id='timer-text' style={{ fontSize: '50px' }}>
                     {timeRemaining.days}:{timeRemaining.hours}:{timeRemaining.minutes}:{timeRemaining.seconds}
                 </div>
             </Grid>

@@ -83,7 +83,7 @@ export default function App() {
             }}
             transition={{ type: "spring", duration: 0.6, ease: "easeIn", delay: 0.4 }}
         >
-            <Container css={{ width: 'fit-content' }}>
+            <Container >
                 <Card >
                     <User
 

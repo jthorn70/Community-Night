@@ -1,4 +1,4 @@
-import { Link, Grid, Table, Dropdown, Tooltip } from '@nextui-org/react';
+import { Container, Link, Grid, Table, Dropdown, Tooltip } from '@nextui-org/react';
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -142,6 +142,7 @@ export default function SubmissionTable({ session, status, randomized }) {
         setEventName(value);
     };
     return (
+
         <motion.div
             initial={{
                 opacity: 0,
@@ -157,80 +158,78 @@ export default function SubmissionTable({ session, status, randomized }) {
             }}
             transition={{ type: "spring", duration: 0.6, ease: "easeIn", delay: 0.4 }}
         >
-            <Grid.Container gap={1} justify='center'>
-                <Grid justify='center'>
-                    <Dropdown>
-                        <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
-                            {selected}
-                        </Dropdown.Button>
-                        <Dropdown.Menu
-                            aria-label="Single selection actions"
-                            color="secondary"
-                            disallowEmptySelection
-                            selectionMode="single"
-                            selectedKeys={selected}
-                            onSelectionChange={setSelected}
-                            onAction={handleSelectionChange}
-                        >
-                            <Dropdown.Item key="Community Night 1">
-                                Community Night 1
-                            </Dropdown.Item>
-                            <Dropdown.Item key="Community Night 2">
-                                Community Night 2
-                            </Dropdown.Item>
-                            <Dropdown.Item key="Community Night 3">
-                                Community Night 3
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Grid>
-            </Grid.Container>
-            <Grid.Container gap={1} justify='center'>
-                <Grid justify='center'>
-                    <Table
-                        aria-label="Submission Form Table">
-                        <Table.Header columns={columns}>
-                            {(column) =>
-                                column ? (
-                                    <Table.Column key={column.key}>{column.label}</Table.Column>
-                                ) : null
-                            }
-                        </Table.Header>
+            <Container>
+                <Grid.Container gap={1} justify='center'>
+                    <Grid justify='center'>
+                        <Dropdown>
+                            <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                                {selected}
+                            </Dropdown.Button>
+                            <Dropdown.Menu
+                                aria-label="Single selection actions"
+                                color="secondary"
+                                disallowEmptySelection
+                                selectionMode="single"
+                                selectedKeys={selected}
+                                onSelectionChange={setSelected}
+                                onAction={handleSelectionChange}
+                            >
+                                <Dropdown.Item key="Community Night 1">
+                                    Community Night 1
+                                </Dropdown.Item>
+                                <Dropdown.Item key="Community Night 2">
+                                    Community Night 2
+                                </Dropdown.Item>
+                                <Dropdown.Item key="Community Night 3">
+                                    Community Night 3
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Grid>
+                </Grid.Container>
+                <Table
+                    aria-label="Submission Form Table">
+                    <Table.Header columns={columns}>
+                        {(column) =>
+                            column ? (
+                                <Table.Column key={column.key}>{column.label}</Table.Column>
+                            ) : null
+                        }
+                    </Table.Header>
 
-                        <Table.Body items={filteredEvents}>
-                            {(item) => (
-                                <Table.Row key={item.id}>
-                                    {(columnKey) =>
-                                        columnKey === 'link' ? (
+                    <Table.Body items={filteredEvents}>
+                        {(item) => (
+                            <Table.Row key={item.id}>
+                                {(columnKey) =>
+                                    columnKey === 'link' ? (
+                                        <Table.Cell>
+                                            <Link href={item[columnKey]} target="_blank" rel="noopener noreferrer">
+                                                {item[columnKey]}
+                                            </Link>
+                                        </Table.Cell>
+                                    ) : columnKey === 'actions' ? (
+                                        isModerator ? (
                                             <Table.Cell>
-                                                <Link href={item[columnKey]} target="_blank" rel="noopener noreferrer">
-                                                    {item[columnKey]}
-                                                </Link>
+                                                <Tooltip content="Delete">
+                                                    <motion.div whileHover={{ scale: 1.3, rotate: -30 }} whileTap={{ scale: 0.9 }} >
+                                                        <IconButton onClick={() => handleDelete(item.id)}>
+                                                            <DeleteIcon size={20} fill="#FF0080" />
+                                                        </IconButton>
+                                                    </motion.div>
+                                                </Tooltip>
                                             </Table.Cell>
-                                        ) : columnKey === 'actions' ? (
-                                            isModerator ? (
-                                                <Table.Cell>
-                                                    <Tooltip content="Delete">
-                                                        <motion.div whileHover={{ scale: 1.3, rotate: -30 }} whileTap={{ scale: 0.9 }} >
-                                                            <IconButton onClick={() => handleDelete(item.id)}>
-                                                                <DeleteIcon size={20} fill="#FF0080" />
-                                                            </IconButton>
-                                                        </motion.div>
-                                                    </Tooltip>
-                                                </Table.Cell>
-                                            ) : null
-                                        ) : (
-                                            <Table.Cell>{item[columnKey]}</Table.Cell>
-                                        )
-                                    }
-                                </Table.Row>
-                            )}
-                        </Table.Body>
+                                        ) : null
+                                    ) : (
+                                        <Table.Cell>{item[columnKey]}</Table.Cell>
+                                    )
+                                }
+                            </Table.Row>
+                        )}
+                    </Table.Body>
 
-                    </Table>
-                </Grid>
-            </Grid.Container>
-
+                </Table>
+            </Container >
         </motion.div>
+
     );
 }

@@ -1,4 +1,4 @@
-import { Navbar, Text } from "@nextui-org/react";
+import { Link, Navbar, Text } from "@nextui-org/react";
 import { Layout } from "../components/Layout.js";
 import { Content } from "../components/Content.js";
 import { useSession } from 'next-auth/react'
@@ -8,16 +8,25 @@ export default function App() {
 
   const { data: session, status } = useSession();
 
+  const collapseItems = [
+    { name: "Home", href: "/" },
+    { name: "Submit", href: "/submit" },
+    { name: "List", href: "/viewList" },
+    { name: "My Profile", href: "/profile/settings" },
+  ];
+
+
   return (
-    <Layout>
-      <Navbar isCompact isBordered variant="sticky">
+    <>
+      <Navbar isBordered variant="sticky">
         <Navbar.Brand>
-          {/* <AcmeLogo /> */}
+          <Navbar.Toggle aria-label="toggle navigation" />
+
           <Text b color="inherit" hideIn="xs">
-            Community Night
+            CN
           </Text>
         </Navbar.Brand>
-        <Navbar.Content hideIn="xs" variant="underline">
+        <Navbar.Content enableCursorHighlight hideIn="xs" variant="underline">
           <Navbar.Link href="/">Home</Navbar.Link>
           <Navbar.Link isActive href="/submit">Submit</Navbar.Link>
           <Navbar.Link href="/viewList">List</Navbar.Link>
@@ -26,8 +35,27 @@ export default function App() {
         <Navbar.Content>
           <DiscordLogin session={session} status={status}></DiscordLogin>
         </Navbar.Content>
+        <Navbar.Collapse>
+          {collapseItems.map((item, index) => (
+            <Navbar.CollapseItem key={index}>
+              <Link
+                color="inherit"
+                css={{
+                  minWidth: "100%",
+                }}
+                href={item.href}
+              >
+                {item.name}
+              </Link>
+            </Navbar.CollapseItem>
+          ))}
+
+        </Navbar.Collapse>
       </Navbar>
-      <Content session={session} status={status} />
-    </Layout>
+      <Layout>
+
+        <Content session={session} status={status} />
+      </Layout>
+    </>
   )
 }
