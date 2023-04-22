@@ -1,3 +1,11 @@
+## About
+This is a project created for [JBooogie](https://twitch.tv/jbooogie)
+This is the home for his community night events. 
+This site is an archive of past nights as well as facilitates the events themselves. 
+This site properly demonstrates my skills to create and maintain a full stack application that incorporates CRUD operations with supabase and deployed on a custom domain with vercel. 
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
