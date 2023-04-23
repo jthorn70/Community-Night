@@ -115,7 +115,7 @@ export default function Form({ session, status }) {
             }}
             transition={{ type: "spring" }}
         >
-            <Card isHoverable className={styles.card}>
+            <Card className={styles.card}>
                 <Card.Body>
                     <Grid.Container justify='center' gap={1}>
 

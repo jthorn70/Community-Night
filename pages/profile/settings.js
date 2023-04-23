@@ -3,6 +3,8 @@ import { Layout } from "../../components/Layout.js";
 import UserSettings from "../../components/UserSettings.js";
 import { useSession } from 'next-auth/react'
 import DiscordLogin from "../../components/DiscordLogin.js";
+import { motion } from "framer-motion";
+import CNIcon from "../../components/CN.js";
 
 
 export default function App() {
@@ -16,15 +18,44 @@ export default function App() {
     ];
     return (
         <>
-            <Navbar isBordered variant="sticky">
+            <Navbar shouldHideOnScroll isBordered variant="sticky">
                 <Navbar.Brand>
-                    <Navbar.Toggle aria-label="toggle navigation" />
+                    <Navbar.Toggle showIn={"sm" || "xs" || "md"} aria-label="toggle navigation" />
+                    <motion.div
+                        initial={{
+                            scale: 0,
+                        }}
+                        animate={{
+                            scale: 1,
+                            fill: "#a8a8a8",
+                            yoyo: Infinity,
+                        }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 260,
+                            damping: 20,
+                        }}
+                        whileHover={{
+                            scale: 1.2,
+                            rotate: 12,
+                            fill: "#FFFFFF",
+                            transition: {
+                                type: "spring",
+                                stiffness: 260,
+                                damping: 20,
+                            }
 
-                    <Text b color="inherit" hideIn="xs">
+                        }}
+
+
+                    >
+                        <CNIcon></CNIcon>
+                    </motion.div>
+                    {/* <Text b color="inherit" hideIn="xs">
                         CN
-                    </Text>
+                    </Text> */}
                 </Navbar.Brand>
-                <Navbar.Content enableCursorHighlight hideIn="xs" variant="underline">
+                <Navbar.Content enableCursorHighlight hideIn="sm" variant="underline">
                     <Navbar.Link href="/">Home</Navbar.Link>
                     <Navbar.Link href="/submit">Submit</Navbar.Link>
                     <Navbar.Link href="/viewList">List</Navbar.Link>

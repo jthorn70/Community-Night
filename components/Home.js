@@ -38,8 +38,8 @@ export default function Home() {
                         <ReactPlayer
                             url="https://www.twitch.tv/jbooogie"
                             controls
-                            width={1280}
-                            height={720}>
+                            width={1280 / 1.3}
+                            height={720 / 1.3}>
 
                         </ReactPlayer>
                     </Card.Body>
