@@ -17,6 +17,7 @@
     "eslint-config-next": "13.2.4",
     "express-session": "^1.17.3",
     "framer-motion": "^10.12.4",
+    "motion": "^10.15.5",
     "next": "13.2.4",
     "next-auth": "^4.21.1",
     "qs": "^6.11.1",

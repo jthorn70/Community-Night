@@ -5,6 +5,7 @@ import DiscordLogin from "../components/DiscordLogin.js";
 import { useSession } from "next-auth/react";
 import CNIcon from "../components/CN.js";
 import { motion } from "framer-motion";
+import ScrollingText from "../components/ScrollingText.js";
 
 
 export default function App() {
@@ -47,7 +48,8 @@ export default function App() {
                                 type: "spring",
                                 stiffness: 260,
                                 damping: 20,
-                            }
+                            },
+
 
                         }}
 

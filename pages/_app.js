@@ -39,6 +39,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, router }) {
         </AnimatePresence>
         <Head>
           <link rel="shortcut icon" href="/favicon.ico" />
+          <link href="https://fonts.googleapis.com/css2?family=Plaster&display=swap" rel="stylesheet" />
+
         </Head>
         <Analytics />
       </NextUIProvider>

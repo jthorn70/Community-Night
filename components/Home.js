@@ -2,6 +2,7 @@ import { Container, Grid, Card, Col, Row, Text } from "@nextui-org/react";
 import dynamic from 'next/dynamic';
 import CountdownClock from "./CountdownClock";
 import { motion } from 'framer-motion'
+import ScrollingText from "./ScrollingText";
 
 
 
@@ -35,13 +36,12 @@ export default function Home() {
                         </Col>
                     </Card.Header>
                     <Card.Body css={{ p: 0 }}>
-                        <ReactPlayer
-                            url="https://www.twitch.tv/jbooogie"
-                            controls
-                            width={1280 / 1.3}
-                            height={720 / 1.3}>
+                        <ScrollingText />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
 
-                        </ReactPlayer>
                     </Card.Body>
                     <Card.Footer
                         isBlurred
@@ -54,7 +54,7 @@ export default function Home() {
                         }}
                     >
                         <Row>
-                            <Col>
+                            <Col xs={6}>
                                 <Row>
                                     <Col span={3}>
 
@@ -76,13 +76,11 @@ export default function Home() {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col>
-                                <Row justify="flex-end">
-                                    <CountdownClock
-                                        targetDate={'2023-04-29T00:00:00Z'}
-                                        fontSize={45}
-                                    />
-                                </Row>
+                            <Col xs={6}>
+                                <CountdownClock
+                                    targetDate={'2023-04-29T00:00:00Z'}
+                                    fontSize={45}
+                                />
                             </Col>
                         </Row>
                     </Card.Footer>

@@ -30,11 +30,7 @@ export default function App() {
                             fill: "#a8a8a8",
                             yoyo: Infinity,
                         }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 260,
-                            damping: 20,
-                        }}
+
                         whileHover={{
                             scale: 1.2,
                             rotate: 12,
