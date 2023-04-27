@@ -5,7 +5,7 @@ import DiscordLogin from "../components/DiscordLogin.js";
 import { useSession } from "next-auth/react";
 import CNIcon from "../components/CN.js";
 import { motion } from "framer-motion";
-import ScrollingText from "../components/ScrollingText.js";
+import Stats from "../components/Stats.js";
 
 
 export default function App() {
@@ -88,7 +88,8 @@ export default function App() {
                 </Navbar.Collapse>
             </Navbar>
             <Layout>
-                <Home />
+                {/* <Home /> */}
+                <Stats session={session} status={status}></Stats>
             </Layout>
         </>
     );
