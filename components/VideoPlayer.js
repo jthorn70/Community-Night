@@ -45,10 +45,14 @@ export default function VideoPlayer({ session, status }) {
                 .from('Submissions')
                 .select('*')
                 .eq('eventName', eventName)
-                .order('category')
-                .limit(45)
+                .in('category', ['Skating', 'meme', 'other'])
+                .order('category',)
             if (error) console.log('error', error);
             else {
+                data.sort((a, b) => {
+                    const order = { skating: 1, other: 2, meme: 3 };
+                    return order[a.category] - order[b.category];
+                });
                 setVideos(data.map((submission) => submission.link));
                 setSubmitterName(data.map((submission) => submission.name));
                 setDescription(data.map((submission) => submission.description));

@@ -28,6 +28,7 @@ export default function App() {
         setIsModerator(isModerator);
     }, [username]);
 
+
     return (
         <>
             <Navbar shouldHideOnScroll isBordered variant="sticky">
@@ -96,7 +97,7 @@ export default function App() {
             <Layout>
 
                 <VideoPlayer session={session} status={status} />
-                {isModerator && <SubmissionTable session={session} status={status} randomized={true} />}
+                {/* {isModerator && <SubmissionTable session={session} status={status} randomized={isModerator ? false : true} />} */}
                 {/* <SubmissionTable session={session} status={status} randomized={false}></SubmissionTable> */}
             </Layout>
         </>
