@@ -2,7 +2,7 @@ import { Container, Grid, Row, Text } from "@nextui-org/react";
 import { motion, MotionConfig } from 'framer-motion'
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState, useRef } from 'react';
-import CNIcon from "./CN";
+import CNIcon from "./CN2";
 
 
 export default function Stats({ session, status }) {
@@ -112,8 +112,26 @@ export default function Stats({ session, status }) {
                     <Grid xs={12} justify="center">
 
                         <motion.div layout onClick={() => setAnimatedUserCount(0)} initial={{ opacity: 0, x: -100, }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1, duration: 1.3 }} >
-                            <div>
-                                <Text css={{ p: 10, mb: 75 }} h1>
+                            <motion.div
+                                initial={{
+                                    borderRadius: '10px',
+                                }}
+                                whileHover={{
+                                    boxShadow: '0px 0px 20px 0px rgba(131,58,180,1)',
+                                    padding: '5px',
+                                    borderRadius: '10px',
+                                    scale: randomName === profileName
+                                        ? 1.3
+                                        : 1,
+                                    rotate: randomName === profileName
+                                        ? 7
+                                        : Math.random() * 5,
+                                    transition: {
+                                        duration: 0.5,
+                                    },
+                                    pointer: "cursor",
+                                }}>
+                                <Text css={{ p: 10, }} h1>
                                     <motion.span
                                         initial={{
                                             backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)',
@@ -130,14 +148,35 @@ export default function Stats({ session, status }) {
                                         {animatedUserCount}
                                     </motion.span> Unique Users
                                 </Text>
-                            </div>
+                            </motion.div>
                         </motion.div>
                     </Grid>
                 </Row>
                 <Row>
                     <Grid xs={12} lg={4} justify="start">
-                        <motion.div layout onHoverStart={() => randomNameGen()} onHoverEnd={() => handleHoverEnd()} initial={{ opacity: 0, x: 100, y: 0 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2, duration: 1.3 }}>
-                            <div>
+
+                        <motion.div layout whileHover={{}} onHoverStart={() => randomNameGen()} onHoverEnd={() => handleHoverEnd()} initial={{ opacity: 0, x: 100, y: 0 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2, duration: 1.3 }}>
+
+                            <motion.div
+                                initial={{
+                                    borderRadius: '10px',
+                                }}
+                                whileHover={{
+                                    boxShadow: '0px 0px 20px 0px rgba(131,58,180,1)',
+                                    padding: '5px',
+                                    borderRadius: '10px',
+                                    scale: randomName === profileName
+                                        ? 1.3
+                                        : 1,
+                                    rotate: randomName === profileName
+                                        ? 7
+                                        : Math.random() * 5,
+                                    transition: {
+                                        duration: 0.5,
+                                    },
+                                    pointer: "cursor",
+                                }}
+                            >
                                 <Text h1>Submissions from: </Text>
                                 <motion.h1
                                     initial={{
@@ -150,6 +189,7 @@ export default function Stats({ session, status }) {
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
 
+
                                         scale: randomName === profileName
                                             ? 1.3
                                             : 1,
@@ -161,21 +201,41 @@ export default function Stats({ session, status }) {
                                             : '0px #fff',
 
                                     }}  >{randomName}.</motion.h1>
-                            </div>
+
+                            </motion.div>
+
                         </motion.div>
                     </Grid>
                     <Grid xs={12} lg={4} justify="center">
-                        <motion.div initial={{ opacity: 0, x: 100, scale: 3, }} animate={{ opacity: 1, x: 0, y: 50, }} transition={{ delay: 5, duration: 1.3 }}>
+                        <motion.div initial={{ opacity: 0, x: 100, scale: 3, y: 50 }} animate={{ opacity: 1, x: 0, }} transition={{ delay: 5, duration: 1.3 }}>
                             <motion.div whileHover={{ scale: 1.7, rotate: 7 }} transition={{ duration: .84 }}>
                                 <Text hideIn='md'>
-                                    <CNIcon gradient={false}></CNIcon>
+                                    <CNIcon ></CNIcon>
                                 </Text>
                             </motion.div>
                         </motion.div>
                     </Grid>
                     <Grid xs={12} lg={4} justify="end">
                         <motion.div layout onClick={() => setAnimatedEventCount(0)} initial={{ opacity: 0, x: -100, y: 0 }} animate={{ opacity: 1, x: 0, }} transition={{ delay: 3, duration: 1.3 }}>
-                            <div>
+                            <motion.div
+                                initial={{
+                                    borderRadius: '10px',
+                                }}
+                                whileHover={{
+                                    boxShadow: '0px 0px 20px 0px rgba(131,58,180,1)',
+                                    padding: '5px',
+                                    borderRadius: '10px',
+                                    scale: randomName === profileName
+                                        ? 1.3
+                                        : 1,
+                                    rotate: randomName === profileName
+                                        ? 7
+                                        : Math.random() * 5,
+                                    transition: {
+                                        duration: 0.5,
+                                    },
+                                    pointer: "cursor",
+                                }}>
                                 <Text css={{ p: 10 }} h1>
                                     <motion.span
                                         initial={{
@@ -192,16 +252,36 @@ export default function Stats({ session, status }) {
                                     >
                                         {animatedEventCount}
                                     </motion.span> Events and counting!</Text>
-                            </div>
+                            </motion.div>
                         </motion.div>
                     </Grid>
                 </Row>
                 <Row>
                     <Grid xs={12} justify="center">
                         <motion.div layout initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0, }} transition={{ delay: 4, duration: 1.3 }}>
-                            <div>
-                                <Text css={{ jc: 'right', mt: 75 }} h1>Hosted by</Text>
-                                <motion.h2
+                            <motion.div
+                                initial={{
+                                    borderRadius: '10px',
+                                    padding: 10
+                                }}
+                                whileHover={{
+                                    boxShadow: '0px 0px 20px 0px rgba(131,58,180,1)',
+                                    padding: '5px',
+                                    borderRadius: '10px',
+                                    scale: randomName === profileName
+                                        ? 1.3
+                                        : 1,
+                                    rotate: randomName === profileName
+                                        ? 7
+                                        : Math.random() * 5,
+                                    transition: {
+                                        duration: 0.5,
+                                    },
+                                    pointer: "cursor",
+                                }}>
+
+                                {/* <Text css={{ jc: 'right', mt: 75 }} h1>Hosted by</Text> */}
+                                <h1>Hosted By <motion.span
 
                                     initial={{
                                         backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)',
@@ -212,13 +292,14 @@ export default function Stats({ session, status }) {
                                         backgroundImage: 'linear-gradient(90deg, rgba(5,5,5,1) 0%, rgba(62,18,61,1) 0%, rgba(59,18,135,1) 100%)',
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
-                                        WebkitTextStroke: '1px white',
-                                        scale: 1.6,
+                                        WebkitTextStroke: '1px #ffffff',
+                                        scale: 4,
                                         rotate: 7
                                     }}
                                 ><a href="https://www.twitch.tv/jbooogie">JBooogie</a>
-                                </motion.h2>
-                            </div>
+                                </motion.span>
+                                </h1>
+                            </motion.div>
                         </motion.div>
                     </Grid>
                 </Row>
@@ -227,3 +308,4 @@ export default function Stats({ session, status }) {
         </Container >
     );
 } Text
+
