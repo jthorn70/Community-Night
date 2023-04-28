@@ -55,7 +55,7 @@ export default function App() {
 
 
                     >
-                        <CNIcon></CNIcon>
+                        <CNIcon gradient={true}></CNIcon>
                     </motion.div>
                     {/* <Text b color="inherit" hideIn="xs">
                         CN

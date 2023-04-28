@@ -113,7 +113,7 @@ export default function Stats({ session, status }) {
 
                         <motion.div layout onClick={() => setAnimatedUserCount(0)} initial={{ opacity: 0, x: -100, }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1, duration: 1.3 }} >
                             <div>
-                                <Text css={{ p: 10, }} h1>
+                                <Text css={{ p: 10, mb: 75 }} h1>
                                     <motion.span
                                         initial={{
                                             backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)',
@@ -154,7 +154,7 @@ export default function Stats({ session, status }) {
                                             ? 1.3
                                             : 1,
                                         rotate: randomName === profileName
-                                            ? 12
+                                            ? 7
                                             : Math.random() * 5,
                                         WebkitTextStroke: randomName === profileName
                                             ? '1px #fff'
@@ -165,10 +165,12 @@ export default function Stats({ session, status }) {
                         </motion.div>
                     </Grid>
                     <Grid xs={12} lg={4} justify="center">
-                        <motion.div initial={{ opacity: 0, x: 100, scale: 3, fill: '#a8a8a8' }} animate={{ opacity: 1, x: 0, y: 50, fill: "#FFFFFF" }} transition={{ delay: 5, duration: 1.3 }}>
-                            <Text hideIn='xl'>
-                                <CNIcon></CNIcon>
-                            </Text>
+                        <motion.div initial={{ opacity: 0, x: 100, scale: 3, }} animate={{ opacity: 1, x: 0, y: 50, }} transition={{ delay: 5, duration: 1.3 }}>
+                            <motion.div whileHover={{ scale: 1.7, rotate: 7 }} transition={{ duration: .84 }}>
+                                <Text hideIn='md'>
+                                    <CNIcon gradient={false}></CNIcon>
+                                </Text>
+                            </motion.div>
                         </motion.div>
                     </Grid>
                     <Grid xs={12} lg={4} justify="end">
@@ -198,24 +200,24 @@ export default function Stats({ session, status }) {
                     <Grid xs={12} justify="center">
                         <motion.div layout initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0, }} transition={{ delay: 4, duration: 1.3 }}>
                             <div>
-                                <Text css={{ p: 10 }} h1>Hosted by
-                                    <motion.h2
+                                <Text css={{ jc: 'right', mt: 75 }} h1>Hosted by</Text>
+                                <motion.h2
 
-                                        initial={{
-                                            backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)',
-                                            WebkitBackgroundClip: 'text',
-                                            WebkitTextFillColor: 'transparent',
-                                        }}
-                                        whileHover={{
-                                            backgroundImage: 'linear-gradient(90deg, rgba(5,5,5,1) 0%, rgba(62,18,61,1) 0%, rgba(59,18,135,1) 100%)',
-                                            WebkitBackgroundClip: 'text',
-                                            WebkitTextFillColor: 'transparent',
-                                            scale: 1.3,
-                                            rotate: 12
-                                        }}
-                                    ><a href="https://www.twitch.tv/jbooogie">JBooogie</a>
-                                    </motion.h2>
-                                </Text>
+                                    initial={{
+                                        backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                    }}
+                                    whileHover={{
+                                        backgroundImage: 'linear-gradient(90deg, rgba(5,5,5,1) 0%, rgba(62,18,61,1) 0%, rgba(59,18,135,1) 100%)',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                        WebkitTextStroke: '1px white',
+                                        scale: 1.6,
+                                        rotate: 7
+                                    }}
+                                ><a href="https://www.twitch.tv/jbooogie">JBooogie</a>
+                                </motion.h2>
                             </div>
                         </motion.div>
                     </Grid>
