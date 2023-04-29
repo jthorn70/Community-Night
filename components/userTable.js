@@ -8,11 +8,6 @@ import { motion } from 'framer-motion'
 
 export default function UserTable({ session, status }) {
 
-
-
-
-
-
     function isValidUrl(value) {
         // Regex to match a valid URL
         const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
@@ -43,7 +38,12 @@ export default function UserTable({ session, status }) {
     const handler = () => setVisible(true);
     const [eventName, setEventName] = useState('');
 
+    const [editID, setEditID] = useState();
 
+    const newHandler = (id) => {
+        setEditID(id);
+        // console.log("edit id:", id);
+    };
 
     const getCurrentEventName = async () => {
         const { data, error } = await supabase
@@ -63,6 +63,7 @@ export default function UserTable({ session, status }) {
 
     const closeHandler = () => {
         setVisible(false);
+        setEditID(null);
         console.log("closed");
     };
 
@@ -192,23 +193,6 @@ export default function UserTable({ session, status }) {
 
                                 ) : columnKey === 'actions' ? (
                                     <Table.Cell>
-                                        {eventName === item.eventName ? (
-                                            <Tooltip content="Edit">
-                                                <motion.div whileHover={{ scale: 1.3, rotate: 30 }} whileTap={{ scale: 0.9 }}>
-                                                    <IconButton onClick={handler}>
-                                                        <EditIcon size={20} fill="#979797" />
-                                                    </IconButton>
-                                                </motion.div>
-                                            </Tooltip>
-                                        ) : (
-                                            <Tooltip content="Not Editable">
-                                                <motion.div whileHover={{ scale: 1.3, rotate: 22, color: 'red' }} whileTap={{ scale: 0.9 }}>
-                                                    <IconButton >
-                                                        <EditIcon size={20} fill="#979797" />
-                                                    </IconButton>
-                                                </motion.div>
-                                            </Tooltip>
-                                        )}
                                         <Modal
                                             closeButton
                                             aria-labelledby="modal-title"
@@ -219,11 +203,11 @@ export default function UserTable({ session, status }) {
                                                 {/* <Text id="modal-title" size={18}>
                                                         Edit Item
                                                     </Text> */}
-                                                <Text h2>Edit Submission</Text>
+                                                <Text h2>Edit Submission {editID}</Text>
                                             </Modal.Header>
                                             <Modal.Body>
 
-                                                <form onSubmit={handleUpdate}>
+                                                <form >
                                                     <Grid.Container gap={1} justify="center">
 
                                                     </Grid.Container>
@@ -327,13 +311,31 @@ export default function UserTable({ session, status }) {
                                                         </Button>
                                                     </Grid>
                                                     <Grid>
-                                                        <Button auto onClick={() => handleUpdate(item.id)} onPress={() => handleUpdate(item.id)}>
+                                                        <Button auto onPress={() => handleUpdate(editID)} >
                                                             Update
                                                         </Button>
                                                     </Grid>
                                                 </Grid.Container>
                                             </Modal.Footer>
                                         </Modal>
+                                        {eventName === item.eventName ? (
+                                            <Tooltip content="Edit">
+                                                <motion.div whileHover={{ scale: 1.3, rotate: 30 }} whileTap={{ scale: 0.9 }}>
+                                                    <IconButton onClick={handler}>
+                                                        <EditIcon onClick={() => { newHandler(item.id) }} size={20} fill="#979797" />
+                                                    </IconButton>
+                                                </motion.div>
+                                            </Tooltip>
+                                        ) : (
+                                            <Tooltip content="Not Editable">
+                                                <motion.div whileHover={{ scale: 1.3, rotate: 22, color: 'red' }} whileTap={{ scale: 0.9 }}>
+                                                    <IconButton >
+                                                        <EditIcon size={20} fill="#979797" />
+                                                    </IconButton>
+                                                </motion.div>
+                                            </Tooltip>
+                                        )}
+
                                         {eventName === item.eventName ? (
                                             <Tooltip content="Delete">
                                                 <motion.div whileHover={{ scale: 1.3, rotate: -30 }} whileTap={{ scale: 0.9 }} >
