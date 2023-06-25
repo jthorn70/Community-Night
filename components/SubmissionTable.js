@@ -196,6 +196,12 @@ export default function SubmissionTable({ session, status, randomized }) {
                                 <Dropdown.Item key="Community Night 7">
                                     Community Night 7
                                 </Dropdown.Item>
+                                <Dropdown.Item key="Community Night 8">
+                                    Community Night 8
+                                </Dropdown.Item>
+                                <Dropdown.Item key="Community Night 9">
+                                    Community Night 9
+                                </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </Grid>
