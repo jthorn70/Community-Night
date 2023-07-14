@@ -97,7 +97,7 @@ export default function SubmissionTable({ session, status, randomized }) {
         setFilteredEvents(
             events.filter((event) => (eventName ? event.eventName === eventName : true))
         )
-        ;
+            ;
     }, [events, eventName]);
 
     const fisherYatesShuffle = (arr) => {
@@ -201,6 +201,15 @@ export default function SubmissionTable({ session, status, randomized }) {
                                 </Dropdown.Item>
                                 <Dropdown.Item key="Community Night 9">
                                     Community Night 9
+                                </Dropdown.Item>
+                                <Dropdown.Item key="Community Night 10">
+                                    Community Night 10
+                                </Dropdown.Item>
+                                <Dropdown.Item key="Community Night 11">
+                                    Community Night 11
+                                </Dropdown.Item>
+                                <Dropdown.Item key="Community Night 12">
+                                    Community Night 12
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
