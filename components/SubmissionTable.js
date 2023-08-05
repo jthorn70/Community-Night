@@ -15,6 +15,8 @@ export default function SubmissionTable({ session, status, randomized }) {
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [user, setUser] = useState([]);
     const [dataChanged, setDataChanged] = useState(false);
+    let totalEventCount = 0;
+    let [eventList, setEventList] = useState([]);
 
 
 
@@ -66,6 +68,39 @@ export default function SubmissionTable({ session, status, randomized }) {
             setDataChanged(!dataChanged);
         }
     };
+
+
+    const getTotalEvents = async () => {
+        let { data, error } = await supabase
+            .from('Submissions')
+            .select('eventName')
+
+        if (error) console.log('error', error);
+        else {
+            // get value of event name from data
+            // console.log("events list:", data);
+            // put events into an array
+            let events = [];
+            data.forEach((event) => {
+                // events.push(event.eventName);
+                eventList.push(event.eventName);
+            });
+            // setEventList(events);
+            // remove duplicates
+            eventList = [...new Set(eventList)];
+            // get the total number of events
+            totalEventCount = eventList.length;
+            // console.log("total events:", totalEventCount)
+
+            // print the events array
+            console.log("events array:", eventList);
+        }
+    }
+    useEffect(() => {
+        getTotalEvents();
+    }, []);
+
+
 
     // check to see if the user is a moderator
     useEffect(() => {
@@ -175,7 +210,18 @@ export default function SubmissionTable({ session, status, randomized }) {
                                 onSelectionChange={setSelected}
                                 onAction={handleSelectionChange}
                             >
-                                <Dropdown.Item key="Community Night 1">
+                                {
+                                    [...new Set(eventList)].map((event) => (
+                                        <Dropdown.Item key={event}>
+                                            {event}
+                                        </Dropdown.Item>
+                                    ))
+                                }
+
+
+
+
+                                {/* <Dropdown.Item key="Community Night 1">
                                     Community Night 1
                                 </Dropdown.Item>
                                 <Dropdown.Item key="Community Night 2">
@@ -210,7 +256,7 @@ export default function SubmissionTable({ session, status, randomized }) {
                                 </Dropdown.Item>
                                 <Dropdown.Item key="Community Night 12">
                                     Community Night 12
-                                </Dropdown.Item>
+                                </Dropdown.Item> */}
                             </Dropdown.Menu>
                         </Dropdown>
                     </Grid>
